@@ -4,14 +4,25 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToOne,
+    JoinColumn,
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
+
+import Shop from './Shop';
 
 @Entity('users')
 class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column()
+    shop_id: string;
+
+    @OneToOne(() => Shop)
+    @JoinColumn({ name: 'shop_id' })
+    shop: Shop;
 
     @Column()
     name: string;

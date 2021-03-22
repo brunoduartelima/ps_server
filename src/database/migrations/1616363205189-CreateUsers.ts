@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateClient1616413471835 implements MigrationInterface {
+export class CreateUsers1616363205189 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'clients',
+                name: 'users',
                 columns: [
                     {
                         name: 'id',
@@ -21,37 +21,23 @@ export class CreateClient1616413471835 implements MigrationInterface {
                     {
                         name: 'cpf',
                         type: 'varchar',
-                    },
-                    {
-                        name: 'address',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'address_number',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'neighborhood',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'cep',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'sex',
-                        type: 'varchar',
+                        isUnique: true,
                     },
                     {
                         name: 'phone',
                         type: 'varchar',
                     },
                     {
-                        name: 'date_birth',
-                        type: 'date',
+                        name: 'email',
+                        type: 'varchar',
+                        isUnique: true,
                     },
                     {
-                        name: 'email',
+                        name: 'password',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'avatar',
                         type: 'varchar',
                         isNullable: true,
                     },
@@ -71,6 +57,7 @@ export class CreateClient1616413471835 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('clients');
+        await queryRunner.dropTable('users');
     }
+
 }
