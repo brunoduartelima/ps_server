@@ -4,40 +4,29 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToOne,
+    ManyToOne,
     JoinColumn,
 } from 'typeorm';
-
-import { Exclude } from 'class-transformer';
-
 import Shop from './Shop';
 
-@Entity('users')
-class User {
+@Entity('employees')
+class Employee {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
     name: string;
 
-    @Column()
-    @Exclude()
-    cpf: string;
+    @Column('decimal')
+    salary: number;
 
     @Column()
-    phone: string;
+    date_birth: Date;
 
-    @Column()
-    email: string;
+    @Column('boolean')
+    active: boolean;
 
-    @Column()
-    @Exclude()
-    password: string;
-
-    @Column()
-    avatar: string;
-
-    @OneToOne(() => Shop)
+    @ManyToOne(() => Shop)
     @JoinColumn({ name: 'shop_id' })
     shop: Shop;
 
@@ -51,4 +40,4 @@ class User {
     updated_at: Date;
 }
 
-export default User;
+export default Employee;
