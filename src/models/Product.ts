@@ -4,7 +4,10 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    ManyToOne,
+    JoinColumn,
 } from 'typeorm';
+import Shop from './Shop';
 
 @Entity('products')
 class Product {
@@ -28,6 +31,13 @@ class Product {
 
     @Column('decimal')
     average_cost: number;
+
+    @ManyToOne(() => Shop)
+    @JoinColumn({ name: 'shop_id' })
+    shop: Shop;
+
+    @Column()
+    shop_id: string;
 
     @CreateDateColumn()
     created_at: Date;

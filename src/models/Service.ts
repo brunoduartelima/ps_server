@@ -4,7 +4,10 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    ManyToOne,
+    JoinColumn,
 } from 'typeorm';
+import Shop from './Shop';
 
 @Entity('services')
 class Service {
@@ -22,6 +25,13 @@ class Service {
 
     @Column('time')
     average_time: Date;
+
+    @ManyToOne(() => Shop)
+    @JoinColumn({ name: 'shop_id' })
+    shop: Shop;
+
+    @Column()
+    shop_id: string;
 
     @CreateDateColumn()
     created_at: Date;
