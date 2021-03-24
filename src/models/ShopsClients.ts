@@ -6,13 +6,13 @@ import {
     JoinColumn,
     PrimaryGeneratedColumn,
     ManyToOne,
-  } from 'typeorm';
+} from 'typeorm';
 
-  import Client from './Client';
+import Client from './Client';
 import Shop from './Shop';
   
-  @Entity('shops_clients')
-  class ShopsClients {
+@Entity('shops_clients')
+class ShopsClients {
   
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -36,6 +36,6 @@ import Shop from './Shop';
   
     @UpdateDateColumn()
     updated_at: Date;
-  }
+}
   
-  export default ShopsClients;
+export default ShopsClients;

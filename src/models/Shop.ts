@@ -7,7 +7,7 @@ import {
     OneToMany,
 } from 'typeorm';
 
-import ShopsClients from './ShopClient';
+import ShopsClients from './ShopsClients';
 
 @Entity('shops')
 class Shop {

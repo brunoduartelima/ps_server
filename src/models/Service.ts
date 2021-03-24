@@ -7,6 +7,7 @@ import {
     ManyToOne,
     JoinColumn,
 } from 'typeorm';
+
 import Shop from './Shop';
 
 @Entity('services')

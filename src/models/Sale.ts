@@ -6,10 +6,12 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
+    OneToMany,
 } from 'typeorm';
-import Client from './Client';
 
 import Shop from './Shop';
+import Client from './Client';
+import SalesEmployees from './SalesEmployees';
 
 @Entity('sales')
 class Sales {
@@ -38,6 +40,11 @@ class Sales {
 
     @Column()
     client_id: string;
+
+    @OneToMany(() => SalesEmployees, sale_employees => sale_employees.sale, {
+        cascade: true,
+    })
+    sale_employees: SalesEmployees[];
 
     @CreateDateColumn()
     created_at: Date;
