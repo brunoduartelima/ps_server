@@ -19,7 +19,6 @@ export class CreateSalesProducts1616757762314 implements MigrationInterface {
                         type: 'decimal',
                         precision: 10,
                         scale: 2,
-                        default: 0
                     },
                     {
                         name: 'descont',

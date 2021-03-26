@@ -13,6 +13,7 @@ import Shop from './Shop';
 import Client from './Client';
 import SalesEmployees from './SalesEmployees';
 import SalesProducts from './SalesProducts';
+import SalesServices from './SalesServices';
 
 @Entity('sales')
 class Sales {
@@ -51,6 +52,11 @@ class Sales {
         cascade: true,
     })
     sale_products: SalesProducts[];
+
+    @OneToMany(() => SalesServices, sale_services => sale_services.sale, {
+        cascade: true,
+    })
+    sale_services: SalesServices[];
 
     @CreateDateColumn()
     created_at: Date;

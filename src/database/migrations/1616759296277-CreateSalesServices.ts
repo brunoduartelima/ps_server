@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateSalesEmployees1616617039691 implements MigrationInterface {
+export class CreateSalesServices1616759296277 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'sales_employees',
+                name: 'sales_services',
                 columns: [
                     {
                         name: 'id',
@@ -15,18 +15,28 @@ export class CreateSalesEmployees1616617039691 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'commission',
+                        name: 'price',
                         type: 'decimal',
                         precision: 10,
                         scale: 2,
-                        default: 0,
+                    },
+                    {
+                        name: 'descont',
+                        type: 'decimal',
+                        precision: 10,
+                        scale: 2,
+                        default: 0
+                    },
+                    {
+                        name: 'quantity',
+                        type: 'int'
                     },
                     {
                         name: 'sale_id',
                         type: 'uuid',
                     },
                     {
-                        name: 'employee_id',
+                        name: 'service_id',
                         type: 'uuid'
                     },
                     {
@@ -44,9 +54,9 @@ export class CreateSalesEmployees1616617039691 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKeys(
-            'sales_employees', [
+            'sales_services', [
                 new TableForeignKey({
-                    name: 'SaleEmployee',
+                    name: 'SaleService',
                     columnNames: ['sale_id'],
                     referencedColumnNames: ['id'],
                     referencedTableName: 'sales',
@@ -54,10 +64,10 @@ export class CreateSalesEmployees1616617039691 implements MigrationInterface {
                     onUpdate: 'CASCADE',
                 }),
                 new TableForeignKey({
-                    name: 'EmployeeSale',
-                    columnNames: ['employee_id'],
+                    name: 'ServiceSale',
+                    columnNames: ['service_id'],
                     referencedColumnNames: ['id'],
-                    referencedTableName: 'employees',
+                    referencedTableName: 'services',
                     onDelete: 'SET NULL',
                     onUpdate: 'CASCADE',
                 }),
@@ -67,9 +77,9 @@ export class CreateSalesEmployees1616617039691 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('sales_employees', 'EmployeeSale');
-        await queryRunner.dropForeignKey('sales_employees', 'SaleEmployee');
-        await queryRunner.dropTable('sales_employees');
+        await queryRunner.dropForeignKey('sales_services', 'ServiceSale');
+        await queryRunner.dropForeignKey('sales_services', 'SaleService');
+        await queryRunner.dropTable('sales_services');
     }
 
 }

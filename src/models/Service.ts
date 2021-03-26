@@ -6,7 +6,9 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
+    OneToMany,
 } from 'typeorm';
+import SalesServices from './SalesServices';
 
 import Shop from './Shop';
 
@@ -33,6 +35,11 @@ class Service {
 
     @Column()
     shop_id: string;
+
+    @OneToMany(() => SalesServices, sale_services => sale_services.service, {
+        cascade: true,
+    })
+    sale_services: SalesServices[];
 
     @CreateDateColumn()
     created_at: Date;
