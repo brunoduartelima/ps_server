@@ -6,9 +6,11 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
+    OneToMany,
 } from 'typeorm';
 
 import Shop from './Shop';
+import SalesProducts from './SalesProducts';
 
 @Entity('products')
 class Product {
@@ -39,6 +41,11 @@ class Product {
 
     @Column()
     shop_id: string;
+
+    @OneToMany(() => SalesProducts, sale_products => sale_products.product, {
+        cascade: true,
+    })
+    sale_products: SalesProducts[];
 
     @CreateDateColumn()
     created_at: Date;
