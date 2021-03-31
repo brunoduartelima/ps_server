@@ -1,23 +1,23 @@
 import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
 
-export class AddShopIdToUsers1616418700136 implements MigrationInterface {
+export class AddUserIdToShops1616418700136 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.addColumn(
-            'users',
+            'shops',
             new TableColumn({
-                name: 'shop_id',
+                name: 'user_id',
                 type: 'uuid',
             }),
         );
 
         await queryRunner.createForeignKey(
-            'users',
+            'shops',
             new TableForeignKey({
                 name: 'UserShop',
-                columnNames: ['shop_id'],
+                columnNames: ['user_id'],
                 referencedColumnNames: ['id'],
-                referencedTableName: 'shops',
+                referencedTableName: 'users',
                 onDelete: 'SET NULL',
                 onUpdate: 'CASCADE',
             }),
@@ -25,8 +25,8 @@ export class AddShopIdToUsers1616418700136 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('users', 'UserShop');
-        await queryRunner.dropColumn('users', 'shop_id');
+        await queryRunner.dropForeignKey('shops', 'UserShop');
+        await queryRunner.dropColumn('shops', 'user_id');
     }
 
 }
