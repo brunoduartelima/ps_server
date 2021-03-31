@@ -5,8 +5,11 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     OneToMany,
+    OneToOne,
+    JoinColumn,
 } from 'typeorm';
 
+import User from '../modules/users/infra/typeorm/entities/User';
 import ShopsClients from './ShopsClients';
 
 @Entity('shops')
@@ -25,6 +28,13 @@ class Shop {
 
     @Column()
     city: string;
+
+    @OneToOne(() => User)
+    @JoinColumn({ name: 'user_id' })
+    user: User;
+
+    @Column()
+    user_id: string;
 
     @OneToMany(() => ShopsClients, shop_clients => shop_clients.shop, {
         cascade: true,
