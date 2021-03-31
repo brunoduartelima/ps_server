@@ -1,4 +1,9 @@
-import { getRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
+
+import AppError from '@shared/errors/AppError';
+import IUsersRepository from '../repositories/IUsersRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+
 import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
@@ -9,27 +14,32 @@ interface IRequest {
     password: string;
 }
 
+@injectable()
 class CreateUserService {
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository,
+
+        @inject('HashProvider')
+        private hashProvider: IHashProvider,
+    ) {}
 
     public async execute({ name, cpf, phone, email, password }: IRequest): Promise<User> {
-        const usersRepository = getRepository(User);
 
-        const checkUserExists = await usersRepository.findOne({
-            where: { email, cpf }
-        });
+        const checkUserExists = await this.usersRepository.findUserExistence(email, cpf);
 
         if (checkUserExists)
-            throw new Error('Email or CPF already used.');
+            throw new AppError('Email or CPF already used.');
 
-        const user = usersRepository.create({
+        const hashedPassword = await this.hashProvider.generateHash(password);
+
+        const user = await this.usersRepository.create({
             name,
             cpf,
             phone,
             email,
-            password,
+            password: hashedPassword,
         });
-
-        await usersRepository.save(user);
 
         return user;
     }
