@@ -27,7 +27,7 @@ export default function ensureAuthenticated(
 
         const { sub } = decoded as TokenPayload;
 
-        request.shop = {
+        request.user = {
             id: sub,
         };
 
