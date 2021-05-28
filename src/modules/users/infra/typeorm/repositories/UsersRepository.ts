@@ -12,12 +12,13 @@ class UsersRepository implements IUsersRepository {
         this.ormRepository = getRepository(User);
     }
 
-    public async findUserExistence(email: string, cpf: string | null): Promise<User | undefined> {
-        const existenceEmail = await this.ormRepository.findOne({ where: { email }});
+    public async findByEmail(email: string): Promise<User | undefined> {
+        const user = await this.ormRepository.findOne({ where: { email }});
+        
+        return user;
+    }
 
-        if (existenceEmail)
-            return existenceEmail;
-            
+    public async findByCpf(cpf: string): Promise<User | undefined> {
         const user = await this.ormRepository.findOne({ where: { cpf }});
         
         return user;

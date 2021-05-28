@@ -26,10 +26,15 @@ class CreateUserService {
 
     public async execute({ name, cpf, phone, email, password }: IRequest): Promise<User> {
 
-        const checkUserExists = await this.usersRepository.findUserExistence(email, cpf);
+        const checkEmail = await this.usersRepository.findByEmail(email);
 
-        if (checkUserExists)
-            throw new AppError('Email or CPF already used.');
+        if (checkEmail)
+            throw new AppError('Email already used.');
+        
+        const checkCpf = await this.usersRepository.findByCpf(cpf);
+
+        if (checkCpf)
+            throw new AppError('CPF already used.');
 
         const hashedPassword = await this.hashProvider.generateHash(password);
 
