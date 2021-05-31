@@ -3,4 +3,5 @@ export default interface ICreateShopDTO {
     company_type: string;
     uf: string;
     city: string;
+    user_id: string;
 }

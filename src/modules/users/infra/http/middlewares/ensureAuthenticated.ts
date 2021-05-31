@@ -8,6 +8,7 @@ interface TokenPayload {
     iat: number;
     exp: number;
     sub: string;
+    payload: string;
 }
 
 export default function ensureAuthenticated(
@@ -25,10 +26,11 @@ export default function ensureAuthenticated(
     try {
         const decoded = verify(token, authConfig.jwt.secret);
 
-        const { sub } = decoded as TokenPayload;
+        const { sub, payload } = decoded as TokenPayload;
 
-        request.user = {
-            id: sub,
+        request.token = {
+            user_id: payload,
+            shop_id: sub
         };
 
         return next();

@@ -7,7 +7,7 @@ import ShowProfileService from '@modules/users/services/ShowProfileService';
 
 export default class ProfileController {
     public async show(request: Request, response: Response): Promise<Response> {
-        const user_id = request.user.id;
+        const user_id = request.token.user_id;
 
         const showProfile = container.resolve(ShowProfileService);
 
@@ -17,7 +17,7 @@ export default class ProfileController {
     }
 
     public async update(request: Request, response: Response): Promise<Response> {
-        const user_id = request.user.id;
+        const user_id = request.token.user_id;
         const { name, phone, email, old_password, password } = request.body;
 
         const updateProfile = container.resolve(UpdateProfileService);

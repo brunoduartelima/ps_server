@@ -18,8 +18,14 @@ class ShopsRepository implements IShopsRepository {
         return shop;
     }
 
-    public async create({ name, company_type, uf, city  }: ICreateShopDTO): Promise<Shop> {
-        const shop = this.ormRepository.create({ name, company_type, uf, city });
+    public async findShop(user_id: string): Promise<Shop | undefined> {
+        const shop = await this.ormRepository.findOne({ where: { user_id } });
+
+        return shop;
+    }
+
+    public async create({ name, company_type, uf, city, user_id  }: ICreateShopDTO): Promise<Shop> {
+        const shop = this.ormRepository.create({ name, company_type, uf, city, user_id });
 
         await this.ormRepository.save(shop);
 
