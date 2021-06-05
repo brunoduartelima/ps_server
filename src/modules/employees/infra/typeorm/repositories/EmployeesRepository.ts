@@ -59,8 +59,8 @@ class EmployeesRepository implements IEmployeesRepository {
         return this.ormRepository.save(employee);
     }
 
-    public async delete(employee: Employee): Promise<void> {
-        await this.ormRepository.delete(employee);
+    public async delete(id: string): Promise<void> {
+        await this.ormRepository.delete(id);
     }
 }
 

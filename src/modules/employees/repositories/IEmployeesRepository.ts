@@ -9,5 +9,5 @@ export default interface IEmployeesRepository {
     findEmployeeByName(shop_id: string, name: string): Promise<SelectQueryBuilder<Employee> | undefined>;
     create(data: ICreateEmployeeDTO): Promise<Employee>;
     save(Employee: Employee): Promise<Employee>;
-    delete(Employee: Employee): Promise<void>;
+    delete(id: string): Promise<void>;
 }
