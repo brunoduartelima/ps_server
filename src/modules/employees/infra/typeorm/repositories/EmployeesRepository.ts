@@ -32,7 +32,7 @@ class EmployeesRepository implements IEmployeesRepository {
     public async findNewlyAddEmployees(shop_id: string): Promise<Employee[] | undefined> {
         const employees = await this.ormRepository.find({ 
             where: { shop_id }, 
-            order: { id:'DESC' }, 
+            order: { created_at: 'DESC' },
             take: 15
         });
 
