@@ -9,6 +9,15 @@ const employeesController = new EmployeesController();
 
 employeesRouter.use(ensureAuthenticated);
 
+employeesRouter.get('/',
+    celebrate({
+        [Segments.QUERY]: {
+            page: Joi.number().required(),
+        }
+    }),
+    employeesController.index
+);
+
 employeesRouter.post('/',
     celebrate({
         [Segments.BODY]: {
@@ -44,6 +53,7 @@ employeesRouter.delete('/:id',
             id: Joi.string().uuid().required(),
         }
     }),
-    employeesController.delete);
+    employeesController.delete
+);
 
 export default employeesRouter;

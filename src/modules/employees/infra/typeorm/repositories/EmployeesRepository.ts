@@ -18,11 +18,12 @@ class EmployeesRepository implements IEmployeesRepository {
         return employee;
     }
 
-    public async findAllEmployeesFromShop(shop_id: string): Promise<Employee[] | undefined> {
+    public async findAllEmployeesFromShop(shop_id: string, page: number): Promise<Employee[] | undefined> {
         const employees = await this.ormRepository.find({ 
             where: { shop_id }, 
-            order: { name:'ASC' }, 
-            skip: 30
+            order: { name:'ASC' },
+            take: 30,
+            skip: (page - 1) * 30
         });
 
         return employees;
@@ -32,7 +33,7 @@ class EmployeesRepository implements IEmployeesRepository {
         const employees = await this.ormRepository.find({ 
             where: { shop_id }, 
             order: { id:'DESC' }, 
-            take: 30
+            take: 15
         });
 
         return employees;
