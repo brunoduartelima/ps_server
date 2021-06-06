@@ -47,8 +47,8 @@ class EmployeesRepository implements IEmployeesRepository {
         return employees;
     }
 
-    public async create({ name, salary, date_birth, active, shop_id }: ICreateEmployeeDTO): Promise<Employee> {
-        const employee = this.ormRepository.create({ name, salary, date_birth, active, shop_id });
+    public async create({ name, salary, date_birth, phone, active, shop_id }: ICreateEmployeeDTO): Promise<Employee> {
+        const employee = this.ormRepository.create({ name, salary, date_birth, phone, active, shop_id });
 
         await this.ormRepository.save(employee);
 

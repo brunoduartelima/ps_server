@@ -27,6 +27,9 @@ class Employee {
     @Column()
     date_birth: Date;
 
+    @Column()
+    phone: string;
+
     @Column('boolean')
     active: boolean;
 

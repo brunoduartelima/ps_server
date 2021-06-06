@@ -8,6 +8,7 @@ interface IRequest {
     name: string;
     salary: number;
     date_birth: Date;
+    phone: string;
     active: boolean;
     shop_id: string;
 }
@@ -19,11 +20,12 @@ class CreateEmployeeService {
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ name, salary, date_birth, active, shop_id }: IRequest): Promise<Employee> {
+    public async execute({ name, salary, date_birth, phone, active, shop_id }: IRequest): Promise<Employee> {
         const employee = await this.employeesRepository.create({
             name,
             salary, 
-            date_birth, 
+            date_birth,
+            phone,
             active, 
             shop_id
         });

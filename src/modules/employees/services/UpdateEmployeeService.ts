@@ -10,6 +10,7 @@ interface IRequest {
     name: string;
     salary: number;
     date_birth: Date;
+    phone: string;
     active: boolean;
 }
 
@@ -20,7 +21,7 @@ class UpdateEmployeeService {
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ id, name, salary, date_birth, active }: IRequest): Promise<Employee> {
+    public async execute({ id, name, salary, date_birth, phone, active }: IRequest): Promise<Employee> {
         const employee = await this.employeesRepository.findById(id);
 
         if(!employee)
@@ -29,6 +30,7 @@ class UpdateEmployeeService {
         employee.name = name;
         employee.salary = salary;
         employee.date_birth = date_birth;
+        employee.phone = phone;
         employee.active = active;
 
         return this.employeesRepository.save(employee);

@@ -8,7 +8,7 @@ import DeleteEmployeeService from '@modules/employees/services/DeleteEmployeeSer
 export default class EmployeesController {
     public async create(request: Request, response: Response): Promise<Response> {
         const { shop_id } = request.token;
-        const { name, salary, date_birth, active } = request.body;
+        const { name, salary, date_birth, phone, active } = request.body;
 
         const createEmployee = container.resolve(CreateEmployeeService);
 
@@ -16,6 +16,7 @@ export default class EmployeesController {
             name, 
             salary, 
             date_birth, 
+            phone,
             active, 
             shop_id
         });
@@ -25,7 +26,7 @@ export default class EmployeesController {
 
     public async update(request: Request, response: Response): Promise<Response> {
         const { id } = request.params;
-        const { name, salary, date_birth, active } = request.body;
+        const { name, salary, date_birth, phone,active } = request.body;
 
         const updateEmployee = container.resolve(UpdateEmployeeService);
 
@@ -34,6 +35,7 @@ export default class EmployeesController {
             name,
             salary,
             date_birth, 
+            phone,
             active
         });
 
