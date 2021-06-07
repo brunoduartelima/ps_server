@@ -12,8 +12,8 @@ class EmployeesRepository implements IEmployeesRepository {
         this.ormRepository = getRepository(Employee);
     }
 
-    public async findById(id: string): Promise<Employee | undefined> {
-        const employee = await this.ormRepository.findOne(id);
+    public async findById(id: string, shop_id: string): Promise<Employee | undefined> {
+        const employee = await this.ormRepository.findOne({ where: { id, shop_id } });
 
         return employee;
     }
@@ -64,7 +64,7 @@ class EmployeesRepository implements IEmployeesRepository {
     }
 
     public async delete(id: string): Promise<void> {
-        await this.ormRepository.delete(id);
+        await this.ormRepository.softDelete(id);
     }
 }
 

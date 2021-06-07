@@ -23,7 +23,7 @@ export default class ShopsController {
     }
 
     public async update(request: Request, response: Response): Promise<Response> {
-        const shop_id = request.token.shop_id;
+        const { shop_id } = request.token;
         const { name, company_type, uf, city } = request.body;
 
         const updateShop = container.resolve(UpdateShopService);

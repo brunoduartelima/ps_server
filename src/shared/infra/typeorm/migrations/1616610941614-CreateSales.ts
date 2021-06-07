@@ -37,6 +37,11 @@ export class CreateSales1616610941614 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     },
+                    {
+                        name: 'deleted_at',
+                        type: 'timestamp',
+                        isNullable: true
+                    },
                 ],
             }),
         );

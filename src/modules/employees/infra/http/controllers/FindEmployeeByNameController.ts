@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import FindEmployeeByNameService from '@modules/employees/services/FindEmployeeByNameService';
 
-export default class FindEmployeeController {
+export default class FindEmployeeByNameController {
     public async index(request: Request, response: Response): Promise<Response> {
         const { shop_id } = request.token;
         const { name } = request.query;

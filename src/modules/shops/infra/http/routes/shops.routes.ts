@@ -7,8 +7,6 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 const shopsRouter = Router();
 const shopsController = new ShopsController();
 
-shopsRouter.use(ensureAuthenticated);
-
 shopsRouter.post('/:user_id',
     celebrate({
         [Segments.BODY]: {
@@ -16,11 +14,12 @@ shopsRouter.post('/:user_id',
             company_type: Joi.string().required(),
             uf: Joi.string().required().max(2),
             city: Joi.string().required(),
-            user_id: Joi.string().uuid().required(),
         }
     }), 
     shopsController.create
 );
+
+shopsRouter.use(ensureAuthenticated);
 
 shopsRouter.put('/',
     celebrate({

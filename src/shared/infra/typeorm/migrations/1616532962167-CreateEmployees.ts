@@ -46,6 +46,11 @@ export class CreateEmployees1616532962167 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     },
+                    {
+                        name: 'deleted_at',
+                        type: 'timestamp',
+                        isNullable: true
+                    },
                 ],
             }),
         );

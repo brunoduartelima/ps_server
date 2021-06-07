@@ -7,6 +7,7 @@ import Employee from '@modules/employees/infra/typeorm/entities/Employee';
 
 interface IRequest {
     id: string;
+    shop_id: string;
     name: string;
     salary: number;
     date_birth: Date;
@@ -21,8 +22,8 @@ class UpdateEmployeeService {
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ id, name, salary, date_birth, phone, active }: IRequest): Promise<Employee> {
-        const employee = await this.employeesRepository.findById(id);
+    public async execute({ id, shop_id, name, salary, date_birth, phone, active }: IRequest): Promise<Employee> {
+        const employee = await this.employeesRepository.findById(id, shop_id);
 
         if(!employee)
             throw new AppError('Employee not found');

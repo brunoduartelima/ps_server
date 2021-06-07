@@ -7,6 +7,7 @@ import {
     ManyToOne,
     JoinColumn,
     OneToMany,
+    DeleteDateColumn,
 } from 'typeorm';
 // import SalesEmployees from './SalesEmployees';
 
@@ -50,6 +51,9 @@ class Employee {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date;
 }
 
 export default Employee;

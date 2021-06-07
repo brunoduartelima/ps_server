@@ -6,6 +6,7 @@ import AppError from '@shared/errors/AppError';
 
 interface IRequest {
     id: string;
+    shop_id: string;
 }
 
 @injectable()
@@ -15,8 +16,8 @@ class DeleteEmployeeService {
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ id }: IRequest): Promise<void> {
-        const employee = await this.employeesRepository.findById(id);
+    public async execute({ id, shop_id }: IRequest): Promise<void> {
+        const employee = await this.employeesRepository.findById(id, shop_id);
 
         if(!employee)
             throw new AppError('Employee not found');

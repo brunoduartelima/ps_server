@@ -7,6 +7,7 @@ import {
     OneToMany,
     OneToOne,
     JoinColumn,
+    DeleteDateColumn,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -46,6 +47,9 @@ class Shop {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date;
 }
 
 export default Shop;

@@ -3,7 +3,7 @@ import ICreateEmployeeDTO from '../dtos/ICreateEmployeeDTO';
 import { SelectQueryBuilder } from 'typeorm';
 
 export default interface IEmployeesRepository {
-    findById(id: string): Promise<Employee | undefined>;
+    findById(id: string, shop_id: string): Promise<Employee | undefined>;
     findAllEmployeesFromShop(shop_id: string, page: number): Promise<Employee[] | undefined>;
     findNewlyAddEmployees(shop_id: string): Promise<Employee[] | undefined>;
     findEmployeeByName(shop_id: string, name: string): Promise<Employee[] | undefined>;

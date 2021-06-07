@@ -40,6 +40,11 @@ export class CreateShops1616366977765 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     },
+                    {
+                        name: 'deleted_at',
+                        type: 'timestamp',
+                        isNullable: true
+                    },
                 ],
             }),
         );

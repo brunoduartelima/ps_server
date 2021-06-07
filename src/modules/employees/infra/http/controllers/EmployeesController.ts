@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import FindAllEmployeesFromShopService from '@modules/employees/services/FindAllEmployeesFromShopService';
+import FindNewlyAddEmployeesService from '@modules/employees/services/FindNewlyAddEmployeesService';
 import CreateEmployeeService from '@modules/employees/services/CreateEmployeeService';
 import UpdateEmployeeService from '@modules/employees/services/UpdateEmployeeService';
 import DeleteEmployeeService from '@modules/employees/services/DeleteEmployeeService';
@@ -9,13 +9,13 @@ import DeleteEmployeeService from '@modules/employees/services/DeleteEmployeeSer
 export default class EmployeesController {
     public async index(request: Request, response: Response): Promise<Response> {
         const { shop_id } = request.token;
-        const { page = 1 } = request.query;
 
-        const findEmployees = container.resolve(FindAllEmployeesFromShopService);
+        const findEmployees = container.resolve(FindNewlyAddEmployeesService);
 
-        const employees = await findEmployees.execute({ shop_id, page: Number(page) });
+        const employees = await findEmployees.execute({ shop_id });
 
         return response.json(employees);
+
     }
 
     public async create(request: Request, response: Response): Promise<Response> {
@@ -37,6 +37,7 @@ export default class EmployeesController {
     }
 
     public async update(request: Request, response: Response): Promise<Response> {
+        const { shop_id } = request.token;
         const { id } = request.params;
         const { name, salary, date_birth, phone,active } = request.body;
 
@@ -44,6 +45,7 @@ export default class EmployeesController {
 
         const employee = await updateEmployee.execute({
             id,
+            shop_id,
             name,
             salary,
             date_birth, 
@@ -55,11 +57,12 @@ export default class EmployeesController {
     }
 
     public async delete(request: Request, response: Response): Promise<void> {
+        const { shop_id } = request.token;
         const { id } = request.params;
 
         const deleteEmployee = container.resolve(DeleteEmployeeService);
 
-        await deleteEmployee.execute({ id });
+        await deleteEmployee.execute({ id, shop_id });
 
         response.status(200).send();
     }

@@ -4,6 +4,7 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    DeleteDateColumn
 } from 'typeorm';
 import { Exclude, Expose } from 'class-transformer';
 
@@ -39,6 +40,9 @@ class User {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date;
 
     @Expose({ name: 'avatar_url' })
     getAvatarUrl(): string | null {
