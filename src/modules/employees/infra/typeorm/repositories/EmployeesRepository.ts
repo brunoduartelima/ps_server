@@ -1,4 +1,4 @@
-import { getRepository, Repository, SelectQueryBuilder } from 'typeorm';
+import { getRepository, Repository, ILike } from 'typeorm';
 
 import IEmployeesRepository from '@modules/employees/repositories/IEmployeesRepository';
 import ICreateEmployeeDTO from '@modules/employees/dtos/ICreateEmployeeDTO';
@@ -39,11 +39,14 @@ class EmployeesRepository implements IEmployeesRepository {
         return employees;
     }
 
-    public async findEmployeeByName(shop_id: string, name: string): Promise<SelectQueryBuilder<Employee> | undefined> {
-        const employees = this.ormRepository.createQueryBuilder()
-        .where({ shop_id })
-        .andWhere('name like :name', { name: `%${name}%` })
-        .orderBy('name');
+    public async findEmployeeByName(shop_id: string, name: string): Promise<Employee[] | undefined> {
+        const employees = this.ormRepository.find({
+            where: {
+                shop_id,
+                name: ILike(`%${name}%`)
+            },
+            order: { name: 'ASC'}
+        });
 
         return employees;
     }
