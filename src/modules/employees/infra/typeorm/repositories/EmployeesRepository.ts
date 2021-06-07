@@ -13,7 +13,7 @@ class EmployeesRepository implements IEmployeesRepository {
     }
 
     public async findById(id: string, shop_id: string): Promise<Employee | undefined> {
-        const employee = await this.ormRepository.findOne({ where: { id, shop_id } });
+        const employee = await this.ormRepository.findOne({ where: { id, shop_id }, withDeleted: true });
 
         return employee;
     }
@@ -63,8 +63,12 @@ class EmployeesRepository implements IEmployeesRepository {
         return this.ormRepository.save(employee);
     }
 
-    public async delete(id: string): Promise<void> {
+    public async softDelete(id: string): Promise<void> {
         await this.ormRepository.softDelete(id);
+    }
+
+    public async restore(id: string): Promise<void> {
+        await this.ormRepository.restore(id);
     }
 }
 

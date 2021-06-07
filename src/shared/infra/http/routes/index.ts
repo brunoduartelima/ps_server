@@ -6,7 +6,7 @@ import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 import employeesRouter from '@modules/employees/infra/http/routes/employees.routes';
-import searchEmployeesRouter from '@modules/employees/infra/http/routes/searchEmployees.routes';
+import searchEmployeesRouter from '@modules/employees/infra/http/routes/search.routes';
 
 const routes = Router();
 

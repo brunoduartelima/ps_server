@@ -12,7 +12,14 @@ const findAllEmployeesFromShopController = new FindAllEmployeesFromShopControlle
 
 searchEmployeesRouter.use(ensureAuthenticated);
 
-searchEmployeesRouter.get('/', findEmployeeByNameController.index);
+searchEmployeesRouter.get('/', 
+    celebrate({
+        [Segments.QUERY]: {
+            name: Joi.string().required(),
+        }
+    }),
+    findEmployeeByNameController.index
+);
 
 searchEmployeesRouter.get('/list-all',     
     celebrate({

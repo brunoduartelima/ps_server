@@ -49,4 +49,13 @@ employeesRouter.delete('/:id',
     employeesController.delete
 );
 
+employeesRouter.put('/restore/:id',
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    employeesController.restore
+);
+
 export default employeesRouter;

@@ -10,7 +10,7 @@ interface IRequest {
 }
 
 @injectable()
-class DeleteEmployeeService {
+class RestoreEmployeeService {
     constructor(
         @inject('EmployeesRepository')
         private employeesRepository: IEmployeesRepository,
@@ -22,9 +22,9 @@ class DeleteEmployeeService {
         if(!employee)
             throw new AppError('Employee not found');
 
-        await this.employeesRepository.softDelete(id);
+        await this.employeesRepository.restore(id);
     }
 
 }
 
-export default DeleteEmployeeService;
+export default RestoreEmployeeService;

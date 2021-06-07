@@ -5,6 +5,7 @@ import FindNewlyAddEmployeesService from '@modules/employees/services/FindNewlyA
 import CreateEmployeeService from '@modules/employees/services/CreateEmployeeService';
 import UpdateEmployeeService from '@modules/employees/services/UpdateEmployeeService';
 import DeleteEmployeeService from '@modules/employees/services/DeleteEmployeeService';
+import RestoreEmployeeService from '@modules/employees/services/RestoreEmployeeService';
 
 export default class EmployeesController {
     public async index(request: Request, response: Response): Promise<Response> {
@@ -63,6 +64,17 @@ export default class EmployeesController {
         const deleteEmployee = container.resolve(DeleteEmployeeService);
 
         await deleteEmployee.execute({ id, shop_id });
+
+        response.status(200).send();
+    }
+
+    public async restore(request: Request, response: Response): Promise<void> {
+        const { shop_id } = request.token;
+        const { id } = request.params;
+
+        const restoreEmployee = container.resolve(RestoreEmployeeService);
+
+        await restoreEmployee.execute({ id, shop_id });
 
         response.status(200).send();
     }

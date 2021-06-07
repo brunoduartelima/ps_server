@@ -9,5 +9,6 @@ export default interface IEmployeesRepository {
     findEmployeeByName(shop_id: string, name: string): Promise<Employee[] | undefined>;
     create(data: ICreateEmployeeDTO): Promise<Employee>;
     save(Employee: Employee): Promise<Employee>;
-    delete(id: string): Promise<void>;
+    softDelete(id: string): Promise<void>;
+    restore(id: string): Promise<void>;
 }
