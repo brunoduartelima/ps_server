@@ -3,8 +3,19 @@ import { container } from 'tsyringe';
 
 import CreateShopService from '@modules/shops/services/CreateShopService';
 import UpdateShopService from '@modules/shops/services/UpdateShopService';
+import ShowShopService from '@modules/shops/services/ShowShopService';
 
 export default class ShopsController {
+    public async index(request: Request, response: Response): Promise<Response> {
+        const { shop_id } = request.token;
+
+        const showShop = container.resolve(ShowShopService);
+
+        const shop = await showShop.execute({ shop_id });
+
+        return response.json(shop);
+    }
+
     public async create(request: Request, response: Response): Promise<Response> {
         const { user_id } = request.params;
         const { name, company_type, uf, city } = request.body;

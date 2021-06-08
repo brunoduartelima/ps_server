@@ -14,12 +14,17 @@ shopsRouter.post('/:user_id',
             company_type: Joi.string().required(),
             uf: Joi.string().required().max(2),
             city: Joi.string().required(),
+        },
+        [Segments.PARAMS]: {
+            user_id: Joi.string().uuid().required(),
         }
     }), 
     shopsController.create
 );
 
 shopsRouter.use(ensureAuthenticated);
+
+shopsRouter.get('/', shopsController.index);
 
 shopsRouter.put('/',
     celebrate({

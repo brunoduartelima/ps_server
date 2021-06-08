@@ -44,7 +44,7 @@ class AuthenticateUserService {
         const shop = await this.shopsRepository.findShop(user.id);
         
         if (!shop)
-            throw new AppError('Incorrect user logon combination.', 401);
+            throw new AppError('User has not completed all registration steps.', 401);
 
         const passwordMatched = await this.hashProvider.compareHash(password, user.password);
 
