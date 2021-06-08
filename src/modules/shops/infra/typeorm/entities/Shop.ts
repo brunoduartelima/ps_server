@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
-// import ShopsClients from './ShopsClients';
+import ShopsClients from './ShopsClients';
 
 @Entity('shops')
 class Shop {
@@ -37,10 +37,10 @@ class Shop {
     @Column()
     user_id: string;
 
-    // @OneToMany(() => ShopsClients, shop_clients => shop_clients.shop, {
-    //     cascade: true,
-    // })
-    // shop_clients: ShopsClients[];
+    @OneToMany(() => ShopsClients, shop_clients => shop_clients.shop, {
+        cascade: true,
+    })
+    shop_clients: ShopsClients[];
 
     @CreateDateColumn()
     created_at: Date;
