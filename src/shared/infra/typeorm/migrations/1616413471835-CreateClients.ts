@@ -1,4 +1,4 @@
-import {IsNull, MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class CreateClients1616413471835 implements MigrationInterface {
 

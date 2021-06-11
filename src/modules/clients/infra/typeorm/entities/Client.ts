@@ -47,7 +47,7 @@ class Client {
     @OneToMany(() => ShopsClients, shop_clients => shop_clients.client, {
         cascade: true,
     })
-    shop_clients: ShopsClients[];
+    shop_clients: ShopsClients;
 
     @CreateDateColumn()
     created_at: Date;

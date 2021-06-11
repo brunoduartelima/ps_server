@@ -9,4 +9,5 @@ export default interface ICreateClientDTO {
     phone: string;
     date_birth: string;
     email: string;
+    shop_id: string;
 }

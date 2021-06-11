@@ -1,4 +1,4 @@
-import {Column, MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
+import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
 
 export class AddShopIdAndClientIdToSales1616612509482 implements MigrationInterface {
 

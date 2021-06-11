@@ -1,6 +1,5 @@
 import Employee from '../infra/typeorm/entities/Employee';
 import ICreateEmployeeDTO from '../dtos/ICreateEmployeeDTO';
-import { SelectQueryBuilder } from 'typeorm';
 
 export default interface IEmployeesRepository {
     findById(id: string, shop_id: string): Promise<Employee | undefined>;
