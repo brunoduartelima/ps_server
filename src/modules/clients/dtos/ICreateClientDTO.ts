@@ -7,7 +7,7 @@ export default interface ICreateClientDTO {
     cep: string;
     sex: string;
     phone: string;
-    date_birth: string;
+    date_birth: Date;
     email: string;
     shop_id: string;
 }

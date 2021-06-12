@@ -15,6 +15,9 @@ import ShopsRepository from '@modules/shops/infra/typeorm/repositories/ShopsRepo
 import IEmployeesRepository from '@modules/employees/repositories/IEmployeesRepository';
 import EmployeesRepository from '@modules/employees/infra/typeorm/repositories/EmployeesRepository';
 
+import IClientsRepository from '@modules/clients/repositories/IClientsRepository';
+import ClientsRepository from '@modules/clients/infra/typeorm/repositories/ClientsRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IUserTokensRepository>('UserTokensRepository', UserTokensRepository);
@@ -22,3 +25,5 @@ container.registerSingleton<IUserTokensRepository>('UserTokensRepository', UserT
 container.registerSingleton<IShopsRepository>('ShopsRepository', ShopsRepository);
 
 container.registerSingleton<IEmployeesRepository>('EmployeesRepository', EmployeesRepository);
+
+container.registerSingleton<IClientsRepository>('ClientsRepository', ClientsRepository);
