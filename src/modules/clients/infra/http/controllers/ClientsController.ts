@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateClientService from '@modules/clients/services/CreateClientService';
 import DeleteClientService from '@modules/clients/services/DeleteClientService';
+import RestoreClientService from '@modules/clients/services/RestoreClientService';
 
 export default class ClientsController {
     // public async index(request: Request, response: Response): Promise<Response> {
@@ -81,14 +82,14 @@ export default class ClientsController {
         response.status(200).send();
     }
 
-    // public async restore(request: Request, response: Response): Promise<void> {
-    //     const { shop_id } = request.token;
-    //     const { id } = request.params;
+    public async restore(request: Request, response: Response): Promise<void> {
+        const { shop_id } = request.token;
+        const { id } = request.params;
 
-    //     const restoreEmployee = container.resolve(RestoreEmployeeService);
+        const restoreClient = container.resolve(RestoreClientService);
 
-    //     await restoreEmployee.execute({ id, shop_id });
+        await restoreClient.execute({ id, shop_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 }

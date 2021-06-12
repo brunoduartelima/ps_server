@@ -36,4 +36,13 @@ clientsRouter.delete('/:id',
     clientsController.delete
 );
 
+clientsRouter.put('/restore/:id',
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    clientsController.restore
+);
+
 export default clientsRouter;
