@@ -21,7 +21,28 @@ clientsRouter.post('/',
             sex: Joi.string().required(), 
             phone: Joi.string().required(),
             date_birth: Joi.date().required(),
-            email: Joi.string().required(),
+            email: Joi.string(),
+        }
+    }), 
+    clientsController.create
+);
+
+clientsRouter.put('/:id',
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().required(), 
+            cpf: Joi.string().required(), 
+            address: Joi.string().required(), 
+            address_number: Joi.string().required(), 
+            neighborhood: Joi.string().required(), 
+            cep: Joi.string().required(), 
+            sex: Joi.string().required(), 
+            phone: Joi.string().required(),
+            date_birth: Joi.date().required(),
+            email: Joi.string(),
+        },
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
         }
     }), 
     clientsController.create

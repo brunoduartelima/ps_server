@@ -5,8 +5,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     OneToMany,
-    Transaction,
-    TransactionManager,
+    DeleteDateColumn,
 } from 'typeorm';
 
 import ShopsClients from '@modules/shops/infra/typeorm/entities/ShopsClients';
@@ -44,7 +43,7 @@ class Client {
     date_birth: Date;
 
     @Column()
-    email: string;
+    email?: string;
 
     @OneToMany(() => ShopsClients, shop_clients => shop_clients.client, {
         cascade: true,
@@ -56,6 +55,9 @@ class Client {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date;
 
 }
 
