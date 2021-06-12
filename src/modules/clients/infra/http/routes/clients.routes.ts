@@ -27,4 +27,13 @@ clientsRouter.post('/',
     clientsController.create
 );
 
+clientsRouter.delete('/:id', 
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    clientsController.delete
+);
+
 export default clientsRouter;

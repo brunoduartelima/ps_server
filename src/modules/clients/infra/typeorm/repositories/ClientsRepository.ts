@@ -79,7 +79,7 @@ class ClientsRepository implements IClientsRepository {
         date_birth, 
         email, 
         shop_id }: ICreateClientDTO): Promise<Client> {
-            const insertedId = this.ormRepository.create({
+            const client = this.ormRepository.create({
                 name, 
                 cpf,
                 address, 
@@ -92,10 +92,10 @@ class ClientsRepository implements IClientsRepository {
                 email
             });
 
-            const client = await this.ormRepository.save(insertedId);
+            const insertedId = await this.ormRepository.save(client);
 
             const shops_clients = this.shopClientRepository.create({
-                client_id: client.id,
+                client_id: insertedId.id,
                 shop_id
             });
 

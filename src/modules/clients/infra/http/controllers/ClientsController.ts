@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateClientService from '@modules/clients/services/CreateClientService';
+import DeleteClientService from '@modules/clients/services/DeleteClientService';
 
 export default class ClientsController {
     // public async index(request: Request, response: Response): Promise<Response> {
@@ -69,16 +70,16 @@ export default class ClientsController {
     //     return response.json(employee);
     // }
 
-    // public async delete(request: Request, response: Response): Promise<void> {
-    //     const { shop_id } = request.token;
-    //     const { id } = request.params;
+    public async delete(request: Request, response: Response): Promise<void> {
+        const { shop_id } = request.token;
+        const { id } = request.params;
 
-    //     const deleteEmployee = container.resolve(DeleteEmployeeService);
+        const deleteClient = container.resolve(DeleteClientService);
 
-    //     await deleteEmployee.execute({ id, shop_id });
+        await deleteClient.execute({ id, shop_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 
     // public async restore(request: Request, response: Response): Promise<void> {
     //     const { shop_id } = request.token;
