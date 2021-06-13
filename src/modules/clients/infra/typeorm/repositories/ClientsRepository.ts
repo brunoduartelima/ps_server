@@ -26,9 +26,15 @@ class ClientsRepository implements IClientsRepository {
     }
 
     public async findAllClientsFromShop(shop_id: string, page: number): Promise<Client[] | undefined> {
-        const clients = await this.ormRepository.find({
-            relations: ['shop_clients'],
-            where: { shop_id }, 
+        const getIdsClients = await this.shopClientRepository.find({
+            where: { shop_id },
+        });
+
+        const ids = getIdsClients.map(client =>(
+            client.client_id
+        ));
+
+        const clients = await this.ormRepository.findByIds(ids, { 
             order: { name:'ASC' },
             take: 30,
             skip: (page - 1) * 30
