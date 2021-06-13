@@ -9,6 +9,8 @@ const clientsController = new ClientsController();
 
 clientsRouter.use(ensureAuthenticated);
 
+clientsRouter.get('/', clientsController.index);
+
 clientsRouter.post('/',
     celebrate({
         [Segments.BODY]: {

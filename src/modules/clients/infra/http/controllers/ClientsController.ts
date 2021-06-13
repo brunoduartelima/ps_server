@@ -5,18 +5,19 @@ import CreateClientService from '@modules/clients/services/CreateClientService';
 import DeleteClientService from '@modules/clients/services/DeleteClientService';
 import RestoreClientService from '@modules/clients/services/RestoreClientService';
 import UpdateClientService from '@modules/clients/services/UpdateClientService';
+import FindNewlyAddClientsService from '@modules/clients/services/FindNewlyAddClientsService';
 
 export default class ClientsController {
-    // public async index(request: Request, response: Response): Promise<Response> {
-    //     const { shop_id } = request.token;
+    public async index(request: Request, response: Response): Promise<Response> {
+        const { shop_id } = request.token;
 
-    //     const findEmployees = container.resolve(FindNewlyAddEmployeesService);
+        const findClients = container.resolve(FindNewlyAddClientsService);
 
-    //     const employees = await findEmployees.execute({ shop_id });
+        const clients = await findClients.execute({ shop_id });
 
-    //     return response.json(employees);
+        return response.json(clients);
 
-    // }
+    }
 
     public async create(request: Request, response: Response): Promise<Response> {
         const { shop_id } = request.token;

@@ -27,7 +27,7 @@ class ClientsRepository implements IClientsRepository {
 
     public async findAllClientsFromShop(shop_id: string, page: number): Promise<Client[] | undefined> {
         const clients = await this.ormRepository.find({
-            relations: ['shops_clients'], 
+            relations: ['shop_clients'],
             where: { shop_id }, 
             order: { name:'ASC' },
             take: 30,
@@ -38,13 +38,21 @@ class ClientsRepository implements IClientsRepository {
     }
 
     public async findNewlyAddClients(shop_id: string): Promise<Client[] | undefined> {
-        const employees = await this.ormRepository.find({ 
-            where: { shop_id }, 
+        const getIdsClients = await this.shopClientRepository.find({
+            where: { shop_id },
             order: { created_at: 'DESC' },
             take: 15
         });
 
-        return employees;
+        const ids = getIdsClients.map(client =>(
+            client.client_id
+        ));
+
+        const clients = await this.ormRepository.findByIds(ids, {
+            order: { created_at: 'DESC' },
+        });
+
+        return clients;
     }
 
     public async findClientByName(shop_id: string, name: string): Promise<Client[] | undefined> {
