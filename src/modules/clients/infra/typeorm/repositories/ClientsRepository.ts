@@ -15,10 +15,11 @@ class ClientsRepository implements IClientsRepository {
         this.shopClientRepository = getRepository(ShopsClients);
     }
 
-    public async findById(id: string, shop_id: string): Promise<Client | undefined> {
-        const client = await this.ormRepository.findOne(id, {
-            relations: ['shops_clients'],
-            where: { shop_id },
+    public async findById(id: string): Promise<Client | undefined> {
+        const client = await this.ormRepository.findOne({
+            relations: ['shop_clients'],
+            where: { id },
+            withDeleted: true
         });
 
         return client;

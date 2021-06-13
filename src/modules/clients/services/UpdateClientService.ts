@@ -28,10 +28,13 @@ class UpdateClientService {
     ) {}
 
     public async execute(data: IRequest): Promise<Client> {
-        const client = await this.clientsRepository.findById(data.id, data.shop_id);
+        const client = await this.clientsRepository.findById(data.id);
 
         if(!client)
             throw new AppError('Client not found');
+        
+        if(data.shop_id !== client.shop_clients[0].shop_id)
+            throw new AppError('Client does not belong to that shop');
     
         if(client.deleted_at !== null)
             throw new AppError('Client deleted, operation not permitted');

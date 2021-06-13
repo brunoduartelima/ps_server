@@ -17,10 +17,13 @@ class RestoreClientService {
     ) {}
 
     public async execute({ id, shop_id }: IRequest): Promise<void> {
-        const client = await this.clientsRepository.findById(id, shop_id);
+        const client = await this.clientsRepository.findById(id);
 
         if(!client)
             throw new AppError('Client not found');
+        
+        if(shop_id !== client.shop_clients[0].shop_id)
+            throw new AppError('Client does not belong to that shop');
 
         await this.clientsRepository.restore(id);
     }

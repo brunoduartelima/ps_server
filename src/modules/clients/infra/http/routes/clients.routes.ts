@@ -45,7 +45,7 @@ clientsRouter.put('/:id',
             id: Joi.string().uuid().required(),
         }
     }), 
-    clientsController.create
+    clientsController.update
 );
 
 clientsRouter.delete('/:id', 
