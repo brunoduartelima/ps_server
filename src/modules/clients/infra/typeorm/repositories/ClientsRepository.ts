@@ -1,4 +1,4 @@
-import { getRepository, Repository, ILike, Like } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import IClientsRepository from '@modules/clients/repositories/IClientsRepository';
 import ICreateClientDTO from '@modules/clients/dtos/ICreateClientDTO';
@@ -15,68 +15,56 @@ class ClientsRepository implements IClientsRepository {
         this.shopClientRepository = getRepository(ShopsClients);
     }
 
-    public async findById(id: string): Promise<Client | undefined> {
-        const client = await this.ormRepository.findOne({
-            relations: ['shop_clients'],
-            where: { id },
-            withDeleted: true
-        });
+    public async findById(id: string, shop_id: string): Promise<Client | undefined> {
+        const client = await this.ormRepository.createQueryBuilder('client')
+        .leftJoinAndSelect('shops_clients', 'shop', 'shop.client_id = client.id')
+        .where('shop.shop_id = :shop_id', { shop_id })
+        .andWhere('client.id = :id', { id })
+        .getOne()
 
         return client;
     }
 
     public async findAllClientsFromShop(shop_id: string, page: number): Promise<Client[] | undefined> {
-        const getIdsClients = await this.shopClientRepository.find({
-            where: { shop_id },
-        });
-
-        const ids = getIdsClients.map(client =>(
-            client.client_id
-        ));
-
-        const clients = await this.ormRepository.findByIds(ids, { 
-            order: { name:'ASC' },
-            take: 30,
-            skip: (page - 1) * 30
-        });
+        const clients = await this.ormRepository.createQueryBuilder('client')
+        .leftJoinAndSelect('shops_clients', 'shop', 'shop.client_id = client.id')
+        .where('shop.shop_id = :shop_id', { shop_id })
+        .orderBy('client.name', 'ASC')
+        .take(30)
+        .skip((page - 1 )* 30)
+        .getMany()
 
         return clients;
     }
 
     public async findNewlyAddClients(shop_id: string): Promise<Client[] | undefined> {
-        const getIdsClients = await this.shopClientRepository.find({
-            where: { shop_id },
-            order: { created_at: 'DESC' },
-            take: 15
-        });
-
-        const ids = getIdsClients.map(client =>(
-            client.client_id
-        ));
-
-        const clients = await this.ormRepository.findByIds(ids, {
-            order: { created_at: 'DESC' },
-        });
+        const clients = await this.ormRepository.createQueryBuilder('client')
+        .leftJoinAndSelect('shops_clients', 'shop', 'shop.client_id = client.id')
+        .where('shop.shop_id = :shop_id', { shop_id })
+        .orderBy('client.created_at', 'DESC')
+        .take(15)
+        .getMany()
 
         return clients;
     }
 
     public async findClientByName(shop_id: string, name: string): Promise<Client[] | undefined> {
-        const clientQuery = this.ormRepository.createQueryBuilder('client')
+        const clients = await this.ormRepository.createQueryBuilder('client')
         .leftJoinAndSelect('shops_clients', 'shop', 'shop.client_id = client.id')
         .where('client.name ilike :name', { name: `%${name}%` })
+        .andWhere('shop.shop_id = :shop_id', { shop_id })
         .orderBy({ name: 'ASC' })
-
-        const clients = await clientQuery.getMany();
+        .getMany()
 
         return clients;
     }
 
     public async findClientByCPF(shop_id: string, cpf: string): Promise<Client | undefined> {
-        const client = this.ormRepository.findOne({
-            relations: ['shops_clients'],
-            where: { shop_id, cpf }
-        });
+        const client = await this.ormRepository.createQueryBuilder('client')
+        .leftJoinAndSelect('shops_clients', 'shop', 'shop.client_id = client.id')
+        .where('client.cpf = :cpf', { cpf })
+        .andWhere('shop.shop_id = :shop_id', { shop_id })
+        .getOne()
 
         return client;
     }

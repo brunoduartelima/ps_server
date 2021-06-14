@@ -28,13 +28,20 @@ class UpdateClientService {
     ) {}
 
     public async execute(data: IRequest): Promise<Client> {
-        const client = await this.clientsRepository.findById(data.id);
+        const client = await this.clientsRepository.findById(data.id, data.shop_id);
 
         if(!client)
             throw new AppError('Client not found');
-        
-        if(data.shop_id !== client.shop_clients[0].shop_id)
-            throw new AppError('Client does not belong to that shop');
+
+        if(client.cpf !== data.cpf) {
+            const controlClientCpf = await this.clientsRepository.findClientByCPF(
+                data.shop_id, 
+                data.cpf
+            );
+
+            if(controlClientCpf)
+                throw new AppError('This CPF is already being used.');
+        }
     
         if(client.deleted_at !== null)
             throw new AppError('Client deleted, operation not permitted');
