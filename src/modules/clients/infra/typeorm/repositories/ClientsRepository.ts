@@ -1,4 +1,4 @@
-import { getRepository, Repository, ILike } from 'typeorm';
+import { getRepository, Repository, ILike, Like } from 'typeorm';
 
 import IClientsRepository from '@modules/clients/repositories/IClientsRepository';
 import ICreateClientDTO from '@modules/clients/dtos/ICreateClientDTO';
@@ -62,15 +62,14 @@ class ClientsRepository implements IClientsRepository {
     }
 
     public async findClientByName(shop_id: string, name: string): Promise<Client[] | undefined> {
-        const employees = this.ormRepository.find({
-            where: {
-                shop_id,
-                name: ILike(`%${name}%`)
-            },
-            order: { name: 'ASC'}
-        });
+        const clientQuery = this.ormRepository.createQueryBuilder('client')
+        .leftJoinAndSelect('shops_clients', 'shop', 'shop.client_id = client.id')
+        .where('client.name ilike :name', { name: `%${name}%` })
+        .orderBy({ name: 'ASC' })
 
-        return employees;
+        const clients = await clientQuery.getMany();
+
+        return clients;
     }
 
     public async findClientByCPF(shop_id: string, cpf: string): Promise<Client | undefined> {

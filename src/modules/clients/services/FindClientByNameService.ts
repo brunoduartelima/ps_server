@@ -6,19 +6,19 @@ import IClientsRepository from '../repositories/IClientsRepository';
 import Client from '../infra/typeorm/entities/Client';
 
 interface IRequest {
+    name: string;
     shop_id: string;
-    page: number;
 }
 
 @injectable()
-class FindAllClientsFromShopService {
+class FindClientByNameService {
     constructor(
         @inject('ClientsRepository')
         private clientsRepository: IClientsRepository,
     ) {}
 
-    public async execute({ shop_id, page }: IRequest): Promise<Client[]> {
-        const clients = await this.clientsRepository.findAllClientsFromShop(shop_id, page);
+    public async execute({ shop_id, name }: IRequest): Promise<Client[]> {
+        const clients = await this.clientsRepository.findClientByName(shop_id, name);
 
         if(!clients)
             throw new AppError('Clients not found');
@@ -28,4 +28,4 @@ class FindAllClientsFromShopService {
 
 }
 
-export default FindAllClientsFromShopService;
+export default FindClientByNameService;

@@ -4,21 +4,22 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 import FindAllClientsFromShopController from '../controllers/FindAllClientsFromShopController';
+import FindClientByNameController from '../controllers/FindClientByNameController';
 
 const searchClientsRouter = Router();
-// const findEmployeeByNameController = new FindEmployeeByNameController();
+const findClientByNameController = new FindClientByNameController();
 const findAllClientsFromShopController = new FindAllClientsFromShopController();
 
 searchClientsRouter.use(ensureAuthenticated);
 
-// searchClientsRouter.get('/', 
-//     celebrate({
-//         [Segments.QUERY]: {
-//             name: Joi.string().required(),
-//         }
-//     }),
-//     findEmployeeByNameController.index
-// );
+searchClientsRouter.get('/', 
+    celebrate({
+        [Segments.QUERY]: {
+            name: Joi.string().required(),
+        }
+    }),
+    findClientByNameController.index
+);
 
 searchClientsRouter.get('/list-all',     
     celebrate({
