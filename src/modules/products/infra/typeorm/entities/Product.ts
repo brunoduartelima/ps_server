@@ -21,10 +21,10 @@ class Product {
     name: string;
 
     @Column()
-    code: string;
+    code?: string;
 
     @Column()
-    description: string;
+    description?: string;
 
     @Column('decimal')
     price: number;
