@@ -25,21 +25,22 @@ productRouter.post('/',
     productController.create
 );
 
-// productRouter.put('/:id',
-//     celebrate({
-//         [Segments.BODY]: {
-//             name: Joi.string().required(),
-//             salary: Joi.number().required(),
-//             date_birth: Joi.date().required(),
-//             phone: Joi.string().required(),
-//             active: Joi.boolean().required(),
-//         },
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }), 
-//     productController.update
-// );
+productRouter.put('/:id',
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().required(),
+            code: Joi.string(), 
+            description: Joi.string(),
+            price: Joi.number().required(),
+            quantity: Joi.number().integer().required(),
+            average_cost: Joi.number().required(),
+        },
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }), 
+    productController.update
+);
 
 productRouter.delete('/:id', 
     celebrate({
