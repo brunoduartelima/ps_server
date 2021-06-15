@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 // import FindNewlyAddProductsService from '@modules/products/services/FindNewlyAddProductsService';
 import CreateProductService from '@modules/products/services/CreateProductService';
 // import UpdateProductService from '@modules/products/services/UpdateProductService';
-// import DeleteProductService from '@modules/products/services/DeleteProductService';
+import DeleteProductService from '@modules/products/services/DeleteProductService';
 // import RestoreProductService from '@modules/products/services/RestoreProductService';
 
 export default class ProductsController {
@@ -58,16 +58,16 @@ export default class ProductsController {
     //     return response.json(employee);
     // }
 
-    // public async delete(request: Request, response: Response): Promise<void> {
-    //     const { shop_id } = request.token;
-    //     const { id } = request.params;
+    public async delete(request: Request, response: Response): Promise<void> {
+        const { shop_id } = request.token;
+        const { id } = request.params;
 
-    //     const deleteEmployee = container.resolve(DeleteEmployeeService);
+        const deleteProduct = container.resolve(DeleteProductService);
 
-    //     await deleteEmployee.execute({ id, shop_id });
+        await deleteProduct.execute({ id, shop_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 
     // public async restore(request: Request, response: Response): Promise<void> {
     //     const { shop_id } = request.token;

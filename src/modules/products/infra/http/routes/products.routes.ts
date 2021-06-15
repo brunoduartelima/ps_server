@@ -41,14 +41,14 @@ productRouter.post('/',
 //     productController.update
 // );
 
-// productRouter.delete('/:id', 
-//     celebrate({
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }),
-//     productController.delete
-// );
+productRouter.delete('/:id', 
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    productController.delete
+);
 
 // productRouter.put('/restore/:id',
 //     celebrate({
