@@ -50,13 +50,13 @@ productRouter.delete('/:id',
     productController.delete
 );
 
-// productRouter.put('/restore/:id',
-//     celebrate({
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }),
-//     productController.restore
-// );
+productRouter.put('/restore/:id',
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    productController.restore
+);
 
 export default productRouter;

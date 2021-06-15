@@ -10,7 +10,7 @@ interface IRequest {
 }
 
 @injectable()
-class DeleteProductService {
+class RestoreProductService {
     constructor(
         @inject('ProductsRepository')
         private productsRepository: IProductsRepository,
@@ -22,9 +22,9 @@ class DeleteProductService {
         if(!product)
             throw new AppError('Product not found');
 
-        await this.productsRepository.softDelete(id);
+        await this.productsRepository.restore(id);
     }
 
 }
 
-export default DeleteProductService;
+export default RestoreProductService;

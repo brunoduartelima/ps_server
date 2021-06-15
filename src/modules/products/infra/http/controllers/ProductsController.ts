@@ -5,7 +5,7 @@ import { container } from 'tsyringe';
 import CreateProductService from '@modules/products/services/CreateProductService';
 // import UpdateProductService from '@modules/products/services/UpdateProductService';
 import DeleteProductService from '@modules/products/services/DeleteProductService';
-// import RestoreProductService from '@modules/products/services/RestoreProductService';
+import RestoreProductService from '@modules/products/services/RestoreProductService';
 
 export default class ProductsController {
     // public async index(request: Request, response: Response): Promise<Response> {
@@ -69,14 +69,14 @@ export default class ProductsController {
         response.status(200).send();
     }
 
-    // public async restore(request: Request, response: Response): Promise<void> {
-    //     const { shop_id } = request.token;
-    //     const { id } = request.params;
+    public async restore(request: Request, response: Response): Promise<void> {
+        const { shop_id } = request.token;
+        const { id } = request.params;
 
-    //     const restoreEmployee = container.resolve(RestoreEmployeeService);
+        const restoreProduct = container.resolve(RestoreProductService);
 
-    //     await restoreEmployee.execute({ id, shop_id });
+        await restoreProduct.execute({ id, shop_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 }
