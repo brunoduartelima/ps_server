@@ -9,7 +9,7 @@ const productController = new ProductsController();
 
 productRouter.use(ensureAuthenticated);
 
-// productRouter.get('/', productController.index);
+productRouter.get('/', productController.index);
 
 productRouter.post('/',
     celebrate({
