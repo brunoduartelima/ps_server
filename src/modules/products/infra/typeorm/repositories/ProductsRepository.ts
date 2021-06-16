@@ -51,6 +51,14 @@ class ProductsRepository implements IProductsRepository {
         return products;
     }
 
+    public async findNameForControl(shop_id: string, name: string): Promise<Product | undefined> {
+        const product = await this.ormRepository.findOne({
+            where: { name, shop_id }
+        });
+
+        return product;
+    }
+
     public async create({ name, code, description, price, quantity, average_cost, shop_id }: ICreateProductDTO): Promise<Product> {
         const product = this.ormRepository.create({ name, code, description, price, quantity, average_cost, shop_id });
 

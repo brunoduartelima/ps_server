@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import IProductsRepository from '../repositories/IProductsRepository';
+import AppError from '@shared/errors/AppError';
 
+import IProductsRepository from '../repositories/IProductsRepository';
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
 interface IRequest {
@@ -22,6 +23,11 @@ class CreateProductService {
     ) {}
 
     public async execute({ name, code, description, price, quantity, average_cost, shop_id }: IRequest): Promise<Product> {
+        const productName = await this.productsRepository.findNameForControl(shop_id, name);
+
+        if(productName)
+            throw new AppError('The name of this product is already in use.');
+
         const product = await this.productsRepository.create({
             name, 
             code, 

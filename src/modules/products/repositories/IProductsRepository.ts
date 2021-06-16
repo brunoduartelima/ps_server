@@ -6,6 +6,7 @@ export default interface IEmployeesRepository {
     findAllProductsFromShop(shop_id: string, page: number): Promise<Product[] | undefined>;
     findNewlyAddProducts(shop_id: string): Promise<Product[] | undefined>;
     findProductByName(shop_id: string, name: string): Promise<Product[] | undefined>;
+    findNameForControl(shop_id: string, name: string): Promise<Product | undefined>;
     create(data: ICreateProductDTO): Promise<Product>;
     save(Product: Product): Promise<Product>;
     softDelete(id: string): Promise<void>;

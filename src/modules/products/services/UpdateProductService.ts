@@ -28,7 +28,14 @@ class UpdateProductService {
 
         if(!product)
             throw new AppError('Product not found');
-        
+
+        if(product.name !== name) {
+            const productName = await this.productsRepository.findNameForControl(shop_id, name);
+
+            if(productName)
+                throw new AppError('The name of this product is already in use.');
+        }
+
         if(product.deleted_at !== null)
             throw new AppError('Product deleted, operation not permitted');
 
