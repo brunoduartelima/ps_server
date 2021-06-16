@@ -10,6 +10,7 @@ import searchEmployeesRouter from '@modules/employees/infra/http/routes/search.r
 import clientsRouter from '@modules/clients/infra/http/routes/clients.routes';
 import searchClientsRouter from '@modules/clients/infra/http/routes/search.routes';
 import productsRouter from '@modules/products/infra/http/routes/products.routes';
+import searchProductsRouter from '@modules/products/infra/http/routes/search.routes';
 
 const routes = Router();
 
@@ -23,5 +24,6 @@ routes.use('/employees/search', searchEmployeesRouter);
 routes.use('/clients', clientsRouter);
 routes.use('/clients/search', searchClientsRouter);
 routes.use('/products', productsRouter);
+routes.use('/products/search', searchProductsRouter);
 
 export default routes;
