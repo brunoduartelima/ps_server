@@ -1,4 +1,4 @@
-import Service from '../infra/typeorm/entities/Services';
+import Service from '../infra/typeorm/entities/Service';
 import ICreateServiceDTO from '../dtos/ICreateServiceDTO';
 
 export default interface IProductsRepository {
