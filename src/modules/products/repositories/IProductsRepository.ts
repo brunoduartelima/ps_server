@@ -1,7 +1,7 @@
 import Product from '../infra/typeorm/entities/Product';
 import ICreateProductDTO from '../dtos/ICreateProductDTO';
 
-export default interface IEmployeesRepository {
+export default interface IProductsRepository {
     findById(id: string, shop_id: string): Promise<Product | undefined>;
     findAllProductsFromShop(shop_id: string, page: number): Promise<Product[] | undefined>;
     findNewlyAddProducts(shop_id: string): Promise<Product[] | undefined>;
