@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateSalesServices1616759296277 implements MigrationInterface {
+export class CreateSalesJobs1616759296277 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'sales_services',
+                name: 'sales_jobs',
                 columns: [
                     {
                         name: 'id',
@@ -36,7 +36,7 @@ export class CreateSalesServices1616759296277 implements MigrationInterface {
                         type: 'uuid',
                     },
                     {
-                        name: 'service_id',
+                        name: 'job_id',
                         type: 'uuid'
                     },
                     {
@@ -54,9 +54,9 @@ export class CreateSalesServices1616759296277 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKeys(
-            'sales_services', [
+            'sales_jobs', [
                 new TableForeignKey({
-                    name: 'SaleService',
+                    name: 'SaleJob',
                     columnNames: ['sale_id'],
                     referencedColumnNames: ['id'],
                     referencedTableName: 'sales',
@@ -64,10 +64,10 @@ export class CreateSalesServices1616759296277 implements MigrationInterface {
                     onUpdate: 'CASCADE',
                 }),
                 new TableForeignKey({
-                    name: 'ServiceSale',
-                    columnNames: ['service_id'],
+                    name: 'JobSale',
+                    columnNames: ['job_id'],
                     referencedColumnNames: ['id'],
-                    referencedTableName: 'services',
+                    referencedTableName: 'jobs',
                     onDelete: 'SET NULL',
                     onUpdate: 'CASCADE',
                 }),
@@ -77,9 +77,9 @@ export class CreateSalesServices1616759296277 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('sales_services', 'ServiceSale');
-        await queryRunner.dropForeignKey('sales_services', 'SaleService');
-        await queryRunner.dropTable('sales_services');
+        await queryRunner.dropForeignKey('sales_jobs', 'JobSale');
+        await queryRunner.dropForeignKey('sales_jobs', 'SaleJob');
+        await queryRunner.dropTable('sales_jobs');
     }
 
 }

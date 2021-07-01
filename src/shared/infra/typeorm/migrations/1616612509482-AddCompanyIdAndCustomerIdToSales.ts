@@ -1,16 +1,16 @@
 import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
 
-export class AddShopIdAndClientIdToSales1616612509482 implements MigrationInterface {
+export class AddCompanyIdAndCustomerIdToSales1616612509482 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.addColumns(
             'sales', [
                 new TableColumn({
-                    name: 'shop_id',
+                    name: 'company_id',
                     type: 'uuid'
                 }),
                 new TableColumn({
-                    name: 'client_id',
+                    name: 'customer_id',
                     type: 'uuid'
                 }),
             ],
@@ -19,18 +19,18 @@ export class AddShopIdAndClientIdToSales1616612509482 implements MigrationInterf
         await queryRunner.createForeignKeys(
             'sales', [
                 new TableForeignKey({
-                    name: 'SaleShop',
-                    columnNames: ['shop_id'],
+                    name: 'SaleCompany',
+                    columnNames: ['company_id'],
                     referencedColumnNames: ['id'],
-                    referencedTableName: 'shops',
+                    referencedTableName: 'companies',
                     onDelete: 'SET NULL',
                     onUpdate: 'CASCADE',
                 }),
                 new TableForeignKey({
-                    name: 'SaleClient',
-                    columnNames: ['client_id'],
+                    name: 'SaleCustomer',
+                    columnNames: ['customer_id'],
                     referencedColumnNames: ['id'],
-                    referencedTableName: 'clients',
+                    referencedTableName: 'customers',
                     onDelete: 'SET NULL',
                     onUpdate: 'CASCADE',
                 }),
@@ -39,10 +39,10 @@ export class AddShopIdAndClientIdToSales1616612509482 implements MigrationInterf
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('sales', 'SaleClient');
-        await queryRunner.dropForeignKey('sales', 'SaleShop');
-        await queryRunner.dropColumn('sales', 'client_id');
-        await queryRunner.dropColumn('sales', 'shop_id');
+        await queryRunner.dropForeignKey('sales', 'SaleCustomer');
+        await queryRunner.dropForeignKey('sales', 'SaleCompany');
+        await queryRunner.dropColumn('sales', 'customer_id');
+        await queryRunner.dropColumn('sales', 'company_id');
     }
 
 }

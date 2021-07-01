@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateShopsClients1616420295322 implements MigrationInterface {
+export class CreateCompaniesCustomers1616420295322 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'shops_clients',
+                name: 'companies_customers',
                 columns: [
                     {
                         name: 'id',
@@ -15,11 +15,11 @@ export class CreateShopsClients1616420295322 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'shop_id',
+                        name: 'company_id',
                         type: 'uuid',
                     },
                     {
-                        name: 'client_id',
+                        name: 'customer_id',
                         type: 'uuid'
                     },
                     {
@@ -37,24 +37,24 @@ export class CreateShopsClients1616420295322 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKey(
-            'shops_clients',
+            'companies_customers',
             new TableForeignKey({
-                name: 'ShopClient',
-                columnNames: ['shop_id'],
+                name: 'CompanyCustomer',
+                columnNames: ['company_id'],
                 referencedColumnNames: ['id'],
-                referencedTableName: 'shops',
+                referencedTableName: 'companies',
                 onDelete: 'SET NULL',
                 onUpdate: 'CASCADE',
             })
         );
 
         await queryRunner.createForeignKey(
-            'shops_clients',
+            'companies_customers',
             new TableForeignKey({
-                name: 'ClientShop',
-                columnNames: ['client_id'],
+                name: 'CustomerCompany',
+                columnNames: ['customer_id'],
                 referencedColumnNames: ['id'],
-                referencedTableName: 'clients',
+                referencedTableName: 'customers',
                 onDelete: 'SET NULL',
                 onUpdate: 'CASCADE',
             })
@@ -62,9 +62,9 @@ export class CreateShopsClients1616420295322 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('shops_clients', 'ClientShop');
-        await queryRunner.dropForeignKey('shops_clients', 'ShopClient');
-        await queryRunner.dropTable('shops_clients');
+        await queryRunner.dropForeignKey('companies_customers', 'CustomerCompany');
+        await queryRunner.dropForeignKey('companies_customers', 'CompanyCustomer');
+        await queryRunner.dropTable('companies_customers');
     }
 
 }

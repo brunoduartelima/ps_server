@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateShops1616366977765 implements MigrationInterface {
+export class CreateCustomers1616413471835 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'shops',
+                name: 'customers',
                 columns: [
                     {
                         name: 'id',
@@ -19,16 +19,41 @@ export class CreateShops1616366977765 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
-                        name: 'company_type',
+                        name: 'cpf',
                         type: 'varchar',
                     },
                     {
-                        name: 'uf',
-                        type: 'varchar(2)',
+                        name: 'address',
+                        type: 'varchar',
                     },
                     {
-                        name: 'city',
+                        name: 'address_number',
                         type: 'varchar',
+                    },
+                    {
+                        name: 'neighborhood',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'cep',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'sex',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'phone',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'date_birth',
+                        type: 'date',
+                    },
+                    {
+                        name: 'email',
+                        type: 'varchar',
+                        isNullable: true,
                     },
                     {
                         name: 'created_at',
@@ -51,7 +76,6 @@ export class CreateShops1616366977765 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('shops');
+        await queryRunner.dropTable('customers');
     }
-
 }
