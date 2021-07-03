@@ -38,14 +38,14 @@ jobRouter.put('/:id',
     jobController.update
 );
 
-// jobRouter.delete('/:id', 
-//     celebrate({
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }),
-//     jobController.delete
-// );
+jobRouter.delete('/:id', 
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    jobController.delete
+);
 
 // jobRouter.put('/restore/:id',
 //     celebrate({

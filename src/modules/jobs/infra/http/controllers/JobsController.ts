@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 // import FindNewlyAddJobsService from '@modules/jobs/services/FindNewlyAddJobsService';
 import CreateJobService from '@modules/jobs/services/CreateJobService';
 import UpdateJobService from '@modules/jobs/services/UpdateJobService';
-// import DeleteJobService from '@modules/jobs/services/DeleteJobService';
+import DeleteJobService from '@modules/jobs/services/DeleteJobService';
 // import RestoreJobService from '@modules/jobs/services/RestoreJobService';
 
 export default class JobsController {
@@ -55,16 +55,16 @@ export default class JobsController {
         return response.json(job);
     }
 
-    // public async delete(request: Request, response: Response): Promise<void> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
+    public async delete(request: Request, response: Response): Promise<void> {
+        const { company_id } = request.token;
+        const { id } = request.params;
 
-    //     const deleteProduct = container.resolve(DeleteProductService);
+        const deleteJob = container.resolve(DeleteJobService);
 
-    //     await deleteProduct.execute({ id, company_id });
+        await deleteJob.execute({ id, company_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 
     // public async restore(request: Request, response: Response): Promise<void> {
     //     const { company_id } = request.token;
