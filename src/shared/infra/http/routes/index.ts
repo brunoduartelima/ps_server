@@ -11,6 +11,7 @@ import customersRouter from '@modules/customers/infra/http/routes/customers.rout
 import searchCustomersRouter from '@modules/customers/infra/http/routes/search.routes';
 import productsRouter from '@modules/products/infra/http/routes/products.routes';
 import searchProductsRouter from '@modules/products/infra/http/routes/search.routes';
+import jobsRouter from '@modules/jobs/infra/http/routes/jobs.routes';
 
 const routes = Router();
 
@@ -25,5 +26,6 @@ routes.use('/customers', customersRouter);
 routes.use('/customers/search', searchCustomersRouter);
 routes.use('/products', productsRouter);
 routes.use('/products/search', searchProductsRouter);
+routes.use('/jobs', jobsRouter);
 
 export default routes;
