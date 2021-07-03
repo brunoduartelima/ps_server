@@ -7,7 +7,7 @@ import Employee from '../infra/typeorm/entities/Employee';
 
 interface IRequest {
     name: string;
-    shop_id: string;
+    company_id: string;
 }
 
 @injectable()
@@ -17,8 +17,8 @@ class FindEmployeeByNameService {
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ shop_id, name }: IRequest): Promise<Employee[]> {
-        const employees = await this.employeesRepository.findEmployeeByName(shop_id, name);
+    public async execute({ company_id, name }: IRequest): Promise<Employee[]> {
+        const employees = await this.employeesRepository.findEmployeeByName(company_id, name);
 
         if(!employees)
             throw new AppError('Employee not found');

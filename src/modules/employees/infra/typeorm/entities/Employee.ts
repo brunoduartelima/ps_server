@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 // import SalesEmployees from './SalesEmployees';
 
-import Shop from '@modules/shops/infra/typeorm/entities/Shop';
+import Company from '@modules/companies/infra/typeorm/entities/Company';
 
 @Entity('employees')
 
@@ -34,12 +34,12 @@ class Employee {
     @Column('boolean')
     active: boolean;
 
-    @ManyToOne(() => Shop)
-    @JoinColumn({ name: 'shop_id' })
-    shop: Shop;
+    @ManyToOne(() => Company)
+    @JoinColumn({ name: 'company_id' })
+    company: Company;
 
     @Column()
-    shop_id: string;
+    company_id: string;
 
     // @OneToMany(() => SalesEmployees, sale_employees => sale_employees.employee, {
     //     cascade: true,

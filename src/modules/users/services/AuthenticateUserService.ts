@@ -5,11 +5,11 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '../repositories/IUsersRepository';
-import IShopsRepository from '@modules/shops/repositories/IShopsRepository';
+import ICompaniesRepository from '@modules/companies/repositories/ICompaniesRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 import User from '../infra/typeorm/entities/User';
-import Shop from '@modules/shops/infra/typeorm/entities/Shop';
+import Company from '@modules/companies/infra/typeorm/entities/Company';
 
 interface IRequest {
     email: string;
@@ -17,7 +17,7 @@ interface IRequest {
 }
 
 interface IResponse {
-    shop: Shop;
+    company: Company;
     user: User;
     token: string;
 }
@@ -28,8 +28,8 @@ class AuthenticateUserService {
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
 
-        @inject('ShopsRepository')
-        private shopsRepository: IShopsRepository,
+        @inject('CompaniesRepository')
+        private companiesRepository: ICompaniesRepository,
 
         @inject('HashProvider')
         private hashProvider: IHashProvider,
@@ -41,9 +41,9 @@ class AuthenticateUserService {
         if (!user)
             throw new AppError('Incorrect email/password combination.', 401);
                 
-        const shop = await this.shopsRepository.findShop(user.id);
+        const company = await this.companiesRepository.findCompany(user.id);
         
-        if (!shop)
+        if (!company)
             throw new AppError('User has not completed all registration steps.', 401);
 
         const passwordMatched = await this.hashProvider.compareHash(password, user.password);
@@ -54,12 +54,12 @@ class AuthenticateUserService {
         const { secret, expiresIn } = authConfig.jwt;
 
         const token = sign({ user: user.id }, secret, {
-            subject: shop.id,
+            subject: company.id,
             expiresIn,
         });
 
         return {
-            shop,
+            company,
             user,
             token,
         };

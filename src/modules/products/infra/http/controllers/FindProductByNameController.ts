@@ -5,12 +5,12 @@ import FindProductByNameService from '@modules/products/services/FindProductByNa
 
 export default class FindProductByNameController {
     public async index(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { name } = request.query;
 
         const findProducts = container.resolve(FindProductByNameService);
 
-        const products = await findProducts.execute({ shop_id, name: String(name) });
+        const products = await findProducts.execute({ company_id, name: String(name) });
 
         return response.json(products);
     }

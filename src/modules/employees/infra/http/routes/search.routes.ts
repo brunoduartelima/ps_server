@@ -4,11 +4,11 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 import FindEmployeeByNameController from '@modules/employees/infra/http/controllers/FindEmployeeByNameController';
-import FindAllEmployeesFromShopController from '../controllers/FindAllEmployeesFromShopController';
+import FindAllEmployeesFromCompanyController from '../controllers/FindAllEmployeesFromCompanyController';
 
 const searchEmployeesRouter = Router();
 const findEmployeeByNameController = new FindEmployeeByNameController();
-const findAllEmployeesFromShopController = new FindAllEmployeesFromShopController();
+const findAllEmployeesFromCompanyController = new FindAllEmployeesFromCompanyController();
 
 searchEmployeesRouter.use(ensureAuthenticated);
 
@@ -27,7 +27,7 @@ searchEmployeesRouter.get('/list-all',
             page: Joi.number().required(),
         }
     }),
-    findAllEmployeesFromShopController.index
+    findAllEmployeesFromCompanyController.index
 );
 
 export default searchEmployeesRouter;

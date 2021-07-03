@@ -13,7 +13,7 @@ interface IRequest {
     price: number;
     quantity: number;
     average_cost: number;
-    shop_id: string;
+    company_id: string;
 }
 
 @injectable()
@@ -23,14 +23,14 @@ class UpdateProductService {
         private productsRepository: IProductsRepository,
     ) {}
 
-    public async execute({ id, name, code, description, price, quantity, average_cost, shop_id }: IRequest): Promise<Product> {
-        const product = await this.productsRepository.findById(id, shop_id);
+    public async execute({ id, name, code, description, price, quantity, average_cost, company_id }: IRequest): Promise<Product> {
+        const product = await this.productsRepository.findById(id, company_id);
 
         if(!product)
             throw new AppError('Product not found');
 
         if(product.name !== name) {
-            const productName = await this.productsRepository.findNameForControl(shop_id, name);
+            const productName = await this.productsRepository.findNameForControl(company_id, name);
 
             if(productName)
                 throw new AppError('The name of this product is already in use.');

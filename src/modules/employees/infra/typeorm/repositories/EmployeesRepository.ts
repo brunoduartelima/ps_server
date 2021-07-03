@@ -12,15 +12,15 @@ class EmployeesRepository implements IEmployeesRepository {
         this.ormRepository = getRepository(Employee);
     }
 
-    public async findById(id: string, shop_id: string): Promise<Employee | undefined> {
-        const employee = await this.ormRepository.findOne({ where: { id, shop_id }, withDeleted: true });
+    public async findById(id: string, company_id: string): Promise<Employee | undefined> {
+        const employee = await this.ormRepository.findOne({ where: { id, company_id }, withDeleted: true });
 
         return employee;
     }
 
-    public async findAllEmployeesFromShop(shop_id: string, page: number): Promise<Employee[] | undefined> {
+    public async findAllEmployeesFromCompany(company_id: string, page: number): Promise<Employee[] | undefined> {
         const employees = await this.ormRepository.find({ 
-            where: { shop_id }, 
+            where: { company_id }, 
             order: { name:'ASC' },
             take: 30,
             skip: (page - 1) * 30
@@ -29,9 +29,9 @@ class EmployeesRepository implements IEmployeesRepository {
         return employees;
     }
 
-    public async findNewlyAddEmployees(shop_id: string): Promise<Employee[] | undefined> {
+    public async findNewlyAddEmployees(company_id: string): Promise<Employee[] | undefined> {
         const employees = await this.ormRepository.find({ 
-            where: { shop_id }, 
+            where: { company_id }, 
             order: { created_at: 'DESC' },
             take: 15
         });
@@ -39,10 +39,10 @@ class EmployeesRepository implements IEmployeesRepository {
         return employees;
     }
 
-    public async findEmployeeByName(shop_id: string, name: string): Promise<Employee[] | undefined> {
+    public async findEmployeeByName(company_id: string, name: string): Promise<Employee[] | undefined> {
         const employees = this.ormRepository.find({
             where: {
-                shop_id,
+                company_id,
                 name: ILike(`%${name}%`)
             },
             order: { name: 'ASC'}
@@ -51,8 +51,8 @@ class EmployeesRepository implements IEmployeesRepository {
         return employees;
     }
 
-    public async create({ name, salary, date_birth, phone, active, shop_id }: ICreateEmployeeDTO): Promise<Employee> {
-        const employee = this.ormRepository.create({ name, salary, date_birth, phone, active, shop_id });
+    public async create({ name, salary, date_birth, phone, active, company_id }: ICreateEmployeeDTO): Promise<Employee> {
+        const employee = this.ormRepository.create({ name, salary, date_birth, phone, active, company_id });
 
         await this.ormRepository.save(employee);
 

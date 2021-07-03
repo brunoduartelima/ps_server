@@ -10,7 +10,7 @@ interface IRequest {
     date_birth: Date;
     phone: string;
     active: boolean;
-    shop_id: string;
+    company_id: string;
 }
 
 @injectable()
@@ -20,14 +20,14 @@ class CreateEmployeeService {
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ name, salary, date_birth, phone, active, shop_id }: IRequest): Promise<Employee> {
+    public async execute({ name, salary, date_birth, phone, active, company_id }: IRequest): Promise<Employee> {
         const employee = await this.employeesRepository.create({
             name,
             salary, 
             date_birth,
             phone,
             active, 
-            shop_id
+            company_id
         });
 
         return employee;

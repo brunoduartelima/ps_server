@@ -12,7 +12,7 @@ interface IRequest {
     price: number;
     quantity: number;
     average_cost: number;
-    shop_id: string;
+    company_id: string;
 }
 
 @injectable()
@@ -22,8 +22,8 @@ class CreateProductService {
         private productsRepository: IProductsRepository,
     ) {}
 
-    public async execute({ name, code, description, price, quantity, average_cost, shop_id }: IRequest): Promise<Product> {
-        const productName = await this.productsRepository.findNameForControl(shop_id, name);
+    public async execute({ name, code, description, price, quantity, average_cost, company_id }: IRequest): Promise<Product> {
+        const productName = await this.productsRepository.findNameForControl(company_id, name);
 
         if(productName)
             throw new AppError('The name of this product is already in use.');
@@ -35,7 +35,7 @@ class CreateProductService {
             price, 
             quantity, 
             average_cost, 
-            shop_id
+            company_id
         });
 
         return product;

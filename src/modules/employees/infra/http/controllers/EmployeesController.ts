@@ -9,18 +9,18 @@ import RestoreEmployeeService from '@modules/employees/services/RestoreEmployeeS
 
 export default class EmployeesController {
     public async index(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
 
         const findEmployees = container.resolve(FindNewlyAddEmployeesService);
 
-        const employees = await findEmployees.execute({ shop_id });
+        const employees = await findEmployees.execute({ company_id });
 
         return response.json(employees);
 
     }
 
     public async create(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { name, salary, date_birth, phone, active } = request.body;
 
         const createEmployee = container.resolve(CreateEmployeeService);
@@ -31,14 +31,14 @@ export default class EmployeesController {
             date_birth, 
             phone,
             active, 
-            shop_id
+            company_id
         });
 
         return response.json(employee);
     }
 
     public async update(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { id } = request.params;
         const { name, salary, date_birth, phone,active } = request.body;
 
@@ -46,7 +46,7 @@ export default class EmployeesController {
 
         const employee = await updateEmployee.execute({
             id,
-            shop_id,
+            company_id,
             name,
             salary,
             date_birth, 
@@ -58,23 +58,23 @@ export default class EmployeesController {
     }
 
     public async delete(request: Request, response: Response): Promise<void> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { id } = request.params;
 
         const deleteEmployee = container.resolve(DeleteEmployeeService);
 
-        await deleteEmployee.execute({ id, shop_id });
+        await deleteEmployee.execute({ id, company_id });
 
         response.status(200).send();
     }
 
     public async restore(request: Request, response: Response): Promise<void> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { id } = request.params;
 
         const restoreEmployee = container.resolve(RestoreEmployeeService);
 
-        await restoreEmployee.execute({ id, shop_id });
+        await restoreEmployee.execute({ id, company_id });
 
         response.status(200).send();
     }

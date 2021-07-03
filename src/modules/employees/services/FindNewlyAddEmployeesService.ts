@@ -6,7 +6,7 @@ import IEmployeesRepository from '../repositories/IEmployeesRepository';
 import Employee from '../infra/typeorm/entities/Employee';
 
 interface IRequest {
-    shop_id: string;
+    company_id: string;
 }
 
 @injectable()
@@ -16,8 +16,8 @@ class FindNewlyAddEmployeesService {
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ shop_id }: IRequest): Promise<Employee[]> {
-        const employees = await this.employeesRepository.findNewlyAddEmployees(shop_id);
+    public async execute({ company_id }: IRequest): Promise<Employee[]> {
+        const employees = await this.employeesRepository.findNewlyAddEmployees(company_id);
 
         if(!employees)
             throw new AppError('Employee not found');

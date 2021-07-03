@@ -6,7 +6,7 @@ import AppError from '@shared/errors/AppError';
 
 interface IRequest {
     id: string;
-    shop_id: string;
+    company_id: string;
 }
 
 @injectable()
@@ -16,8 +16,8 @@ class DeleteProductService {
         private productsRepository: IProductsRepository,
     ) {}
 
-    public async execute({ id, shop_id }: IRequest): Promise<void> {
-        const product = await this.productsRepository.findById(id, shop_id);
+    public async execute({ id, company_id }: IRequest): Promise<void> {
+        const product = await this.productsRepository.findById(id, company_id);
 
         if(!product)
             throw new AppError('Product not found');

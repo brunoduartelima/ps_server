@@ -5,12 +5,12 @@ import FindEmployeeByNameService from '@modules/employees/services/FindEmployeeB
 
 export default class FindEmployeeByNameController {
     public async index(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { name } = request.query;
 
         const findEmployees = container.resolve(FindEmployeeByNameService);
 
-        const employees = await findEmployees.execute({ shop_id, name: String(name) });
+        const employees = await findEmployees.execute({ company_id, name: String(name) });
 
         return response.json(employees);
 

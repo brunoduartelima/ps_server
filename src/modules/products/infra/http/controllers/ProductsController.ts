@@ -9,18 +9,18 @@ import RestoreProductService from '@modules/products/services/RestoreProductServ
 
 export default class ProductsController {
     public async index(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
 
         const findProducts = container.resolve(FindNewlyAddProductsService);
 
-        const products = await findProducts.execute({ shop_id });
+        const products = await findProducts.execute({ company_id });
 
         return response.json(products);
 
     }
 
     public async create(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { name, code, description, price, quantity, average_cost } = request.body;
 
         const createProduct = container.resolve(CreateProductService);
@@ -32,14 +32,14 @@ export default class ProductsController {
             price, 
             quantity, 
             average_cost, 
-            shop_id
+            company_id
         });
 
         return response.json(product);
     }
 
     public async update(request: Request, response: Response): Promise<Response> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { id } = request.params;
         const { name, code, description, price, quantity, average_cost, } = request.body;
 
@@ -53,30 +53,30 @@ export default class ProductsController {
             price, 
             quantity, 
             average_cost, 
-            shop_id
+            company_id
         });
 
         return response.json(product);
     }
 
     public async delete(request: Request, response: Response): Promise<void> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { id } = request.params;
 
         const deleteProduct = container.resolve(DeleteProductService);
 
-        await deleteProduct.execute({ id, shop_id });
+        await deleteProduct.execute({ id, company_id });
 
         response.status(200).send();
     }
 
     public async restore(request: Request, response: Response): Promise<void> {
-        const { shop_id } = request.token;
+        const { company_id } = request.token;
         const { id } = request.params;
 
         const restoreProduct = container.resolve(RestoreProductService);
 
-        await restoreProduct.execute({ id, shop_id });
+        await restoreProduct.execute({ id, company_id });
 
         response.status(200).send();
     }

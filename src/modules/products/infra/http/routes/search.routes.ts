@@ -4,11 +4,11 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 import FindProductByNameController from '@modules/products/infra/http/controllers/FindProductByNameController';
-import FindAllProductsFromShopController from '../controllers/FindAllProductsFromShopController';
+import FindAllProductsFromCompanyController from '../controllers/FindAllProductsFromComapnyController';
 
 const searchProductsRouter = Router();
 const findProductByNameController = new FindProductByNameController();
-const findAllProductsFromShopController = new FindAllProductsFromShopController();
+const findAllProductsFromCompanyController = new FindAllProductsFromCompanyController();
 
 searchProductsRouter.use(ensureAuthenticated);
 
@@ -27,7 +27,7 @@ searchProductsRouter.get('/list-all',
             page: Joi.number().required(),
         }
     }),
-    findAllProductsFromShopController.index
+    findAllProductsFromCompanyController.index
 );
 
 export default searchProductsRouter;

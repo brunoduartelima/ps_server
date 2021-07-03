@@ -4,5 +4,5 @@ export default interface ICreateEmployeeDTO {
     date_birth: Date;
     phone: string;
     active: boolean;
-    shop_id: string;
+    company_id: string;
 }

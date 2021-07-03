@@ -10,7 +10,7 @@ import {
     DeleteDateColumn,
 } from 'typeorm';
 
-import Shop from '@modules/shops/infra/typeorm/entities/Shop';
+import Company from '@modules/companies/infra/typeorm/entities/Company';
 // import SalesProducts from './SalesProducts';
 
 @Entity('products')
@@ -36,12 +36,12 @@ class Product {
     @Column('decimal')
     average_cost: number;
 
-    @ManyToOne(() => Shop)
-    @JoinColumn({ name: 'shop_id' })
-    shop: Shop;
+    @ManyToOne(() => Company)
+    @JoinColumn({ name: 'company_id' })
+    company: Company;
 
     @Column()
-    shop_id: string;
+    company_id: string;
 
     // @OneToMany(() => SalesProducts, sale_products => sale_products.product, {
     //     cascade: true,

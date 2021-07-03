@@ -5,5 +5,5 @@ export default interface ICreateProductDTO {
     price: number;
     quantity: number;
     average_cost: number;
-    shop_id: string;
+    company_id: string;
 }

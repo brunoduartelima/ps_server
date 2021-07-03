@@ -14,7 +14,7 @@ export class AddUserIdToCompanies1616418700136 implements MigrationInterface {
         await queryRunner.createForeignKey(
             'companies',
             new TableForeignKey({
-                name: 'UserShop',
+                name: 'UserCompany',
                 columnNames: ['user_id'],
                 referencedColumnNames: ['id'],
                 referencedTableName: 'users',
@@ -25,7 +25,7 @@ export class AddUserIdToCompanies1616418700136 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('companies', 'UserShop');
+        await queryRunner.dropForeignKey('companies', 'UserCompany');
         await queryRunner.dropColumn('companies', 'user_id');
     }
 
