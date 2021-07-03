@@ -5,7 +5,7 @@ import { container } from 'tsyringe';
 import CreateJobService from '@modules/jobs/services/CreateJobService';
 import UpdateJobService from '@modules/jobs/services/UpdateJobService';
 import DeleteJobService from '@modules/jobs/services/DeleteJobService';
-// import RestoreJobService from '@modules/jobs/services/RestoreJobService';
+import RestoreJobService from '@modules/jobs/services/RestoreJobService';
 
 export default class JobsController {
     // public async index(request: Request, response: Response): Promise<Response> {
@@ -66,14 +66,14 @@ export default class JobsController {
         response.status(200).send();
     }
 
-    // public async restore(request: Request, response: Response): Promise<void> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
+    public async restore(request: Request, response: Response): Promise<void> {
+        const { company_id } = request.token;
+        const { id } = request.params;
 
-    //     const restoreProduct = container.resolve(RestoreProductService);
+        const restoreJob = container.resolve(RestoreJobService);
 
-    //     await restoreProduct.execute({ id, company_id });
+        await restoreJob.execute({ id, company_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 }

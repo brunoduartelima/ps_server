@@ -47,13 +47,13 @@ jobRouter.delete('/:id',
     jobController.delete
 );
 
-// jobRouter.put('/restore/:id',
-//     celebrate({
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }),
-//     jobController.restore
-// );
+jobRouter.put('/restore/:id',
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    jobController.restore
+);
 
 export default jobRouter;
