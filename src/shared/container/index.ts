@@ -21,6 +21,9 @@ import CustomersRepository from '@modules/customers/infra/typeorm/repositories/C
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 
+import IJobsRepository from '@modules/jobs/repositories/IJobsRepository';
+import JobsRepository from '@modules/jobs/infra/typeorm/repositories/JobsRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IUserTokensRepository>('UserTokensRepository', UserTokensRepository);
@@ -32,3 +35,5 @@ container.registerSingleton<IEmployeesRepository>('EmployeesRepository', Employe
 container.registerSingleton<ICustomersRepository>('CustomersRepository', CustomersRepository);
 
 container.registerSingleton<IProductsRepository>('ProductsRepository', ProductsRepository);
+
+container.registerSingleton<IJobsRepository>('JobsRepository', JobsRepository);

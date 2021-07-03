@@ -3,6 +3,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import JobsController from '../controllers/JobsController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import { format } from 'date-fns';
 
 const jobRouter = Router();
 const jobController = new JobsController();
@@ -17,7 +18,7 @@ jobRouter.post('/',
             name: Joi.string().required(), 
             description: Joi.string(),
             price: Joi.number().required(),
-            average_time: Joi.date().required(),
+            average_time: Joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
         }
     }),
     jobController.create
@@ -29,7 +30,7 @@ jobRouter.put('/:id',
             name: Joi.string().required(), 
             description: Joi.string(),
             price: Joi.number().required(),
-            average_time: Joi.date().required(),
+            average_time: Joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required()
         },
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
