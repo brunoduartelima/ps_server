@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 // import FindNewlyAddJobsService from '@modules/jobs/services/FindNewlyAddJobsService';
 import CreateJobService from '@modules/jobs/services/CreateJobService';
-// import UpdateJobService from '@modules/jobs/services/UpdateJobService';
+import UpdateJobService from '@modules/jobs/services/UpdateJobService';
 // import DeleteJobService from '@modules/jobs/services/DeleteJobService';
 // import RestoreJobService from '@modules/jobs/services/RestoreJobService';
 
@@ -36,26 +36,24 @@ export default class JobsController {
         return response.json(job);
     }
 
-    // public async update(request: Request, response: Response): Promise<Response> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
-    //     const { name, code, description, price, quantity, average_cost, } = request.body;
+    public async update(request: Request, response: Response): Promise<Response> {
+        const { company_id } = request.token;
+        const { id } = request.params;
+        const { name, description, price, average_time } = request.body;
 
-    //     const updateProduct = container.resolve(UpdateProductService);
+        const updateJob = container.resolve(UpdateJobService);
 
-    //     const product = await updateProduct.execute({
-    //         id,
-    //         name, 
-    //         code, 
-    //         description, 
-    //         price, 
-    //         quantity, 
-    //         average_cost, 
-    //         company_id
-    //     });
+        const job = await updateJob.execute({
+            id,
+            name,
+            description, 
+            price,
+            average_time, 
+            company_id
+        });
 
-    //     return response.json(product);
-    // }
+        return response.json(job);
+    }
 
     // public async delete(request: Request, response: Response): Promise<void> {
     //     const { company_id } = request.token;

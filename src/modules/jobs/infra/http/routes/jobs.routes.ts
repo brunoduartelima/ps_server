@@ -23,22 +23,20 @@ jobRouter.post('/',
     jobController.create
 );
 
-// jobRouter.put('/:id',
-//     celebrate({
-//         [Segments.BODY]: {
-//             name: Joi.string().required(),
-//             code: Joi.string(), 
-//             description: Joi.string(),
-//             price: Joi.number().required(),
-//             quantity: Joi.number().integer().required(),
-//             average_cost: Joi.number().required(),
-//         },
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }), 
-//     jobController.update
-// );
+jobRouter.put('/:id',
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().required(), 
+            description: Joi.string(),
+            price: Joi.number().required(),
+            average_time: Joi.date().required(),
+        },
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }), 
+    jobController.update
+);
 
 // jobRouter.delete('/:id', 
 //     celebrate({

@@ -7,6 +7,7 @@ import {
     ManyToOne,
     JoinColumn,
     OneToMany,
+    DeleteDateColumn,
 } from 'typeorm';
 
 import Company from '@modules/companies/infra/typeorm/entities/Company';
@@ -20,7 +21,7 @@ class Job {
     name: string;
 
     @Column()
-    description: string;
+    description?: string;
 
     @Column('decimal')
     price: number;
@@ -45,6 +46,9 @@ class Job {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date;
 }
 
 export default Job;
