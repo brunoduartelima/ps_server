@@ -10,6 +10,7 @@ import {
     DeleteDateColumn,
 } from 'typeorm';
 
+import SalesJobs from '@modules/sales/infra/typeorm/entities/SalesJobs';
 import Company from '@modules/companies/infra/typeorm/entities/Company';
 
 @Entity('jobs')
@@ -36,10 +37,10 @@ class Job {
     @Column()
     company_id: string;
 
-    // @OneToMany(() => SalesJobs, sale_jobs => sale_jobs.job, {
-    //     cascade: true,
-    // })
-    // sale_jobs: SalesJobs[];
+    @OneToMany(() => SalesJobs, sale_jobs => sale_jobs.job, {
+        cascade: true,
+    })
+    sale_jobs: SalesJobs[];
 
     @CreateDateColumn()
     created_at: Date;
