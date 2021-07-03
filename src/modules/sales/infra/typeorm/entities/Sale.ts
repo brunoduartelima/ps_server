@@ -24,7 +24,7 @@ class Sales {
     type: string;
 
     @Column()
-    description: string;
+    description?: string;
 
     @Column('timestamp with time zone')
     date: Date;

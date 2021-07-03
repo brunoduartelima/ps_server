@@ -11,7 +11,8 @@ export class AddCompanyIdAndCustomerIdToSales1616612509482 implements MigrationI
                 }),
                 new TableColumn({
                     name: 'customer_id',
-                    type: 'uuid'
+                    type: 'uuid',
+                    isNullable: true
                 }),
             ],
         );
