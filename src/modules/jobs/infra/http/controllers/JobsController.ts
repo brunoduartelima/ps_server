@@ -1,23 +1,23 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-// import FindNewlyAddJobsService from '@modules/jobs/services/FindNewlyAddJobsService';
+import FindNewlyAddJobsService from '@modules/jobs/services/FindNewlyAddJobsService';
 import CreateJobService from '@modules/jobs/services/CreateJobService';
 import UpdateJobService from '@modules/jobs/services/UpdateJobService';
 import DeleteJobService from '@modules/jobs/services/DeleteJobService';
 import RestoreJobService from '@modules/jobs/services/RestoreJobService';
 
 export default class JobsController {
-    // public async index(request: Request, response: Response): Promise<Response> {
-    //     const { company_id } = request.token;
+    public async index(request: Request, response: Response): Promise<Response> {
+        const { company_id } = request.token;
 
-    //     const findJobs = container.resolve(FindNewlyAddJobsService);
+        const findJobs = container.resolve(FindNewlyAddJobsService);
 
-    //     const jobs = await findJobs.execute({ company_id });
+        const jobs = await findJobs.execute({ company_id });
 
-    //     return response.json(jobs);
+        return response.json(jobs);
 
-    // }
+    }
 
     public async create(request: Request, response: Response): Promise<Response> {
         const { company_id } = request.token;

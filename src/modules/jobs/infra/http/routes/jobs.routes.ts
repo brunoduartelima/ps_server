@@ -9,7 +9,7 @@ const jobController = new JobsController();
 
 jobRouter.use(ensureAuthenticated);
 
-// jobRouter.get('/', jobController.index);
+jobRouter.get('/', jobController.index);
 
 jobRouter.post('/',
     celebrate({
