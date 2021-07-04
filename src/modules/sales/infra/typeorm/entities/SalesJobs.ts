@@ -21,7 +21,7 @@ class SalesJobs {
     price: number;
 
     @Column('decimal')
-    descont: number;
+    descont?: number;
 
     @Column('int')
     quantity: number;

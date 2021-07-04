@@ -13,6 +13,7 @@ import productsRouter from '@modules/products/infra/http/routes/products.routes'
 import searchProductsRouter from '@modules/products/infra/http/routes/search.routes';
 import jobsRouter from '@modules/jobs/infra/http/routes/jobs.routes';
 import searchJobsRouter from '@modules/jobs/infra/http/routes/search.routes';
+import salesRouter from '@modules/sales/infra/http/routes/sales.routes';
 
 const routes = Router();
 
@@ -29,5 +30,6 @@ routes.use('/products', productsRouter);
 routes.use('/products/search', searchProductsRouter);
 routes.use('/jobs', jobsRouter);
 routes.use('/jobs/search', searchJobsRouter);
+routes.use('/sales', salesRouter);
 
 export default routes;

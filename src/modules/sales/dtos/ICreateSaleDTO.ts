@@ -1,22 +1,20 @@
-import Customer from "@modules/customers/infra/typeorm/entities/Customer";
-
 interface IProduct {
     product_id: string;
     price: number;
-    descont: number;
+    descont?: number;
     quantity: number;
 }
 
 interface IJob {
     job_id: string;
     price: number;
-    descont: number;
+    descont?: number;
     quantity: number;
 }
 
 interface IEmployee {
     employee_id: string;
-    commission: number;
+    commission?: number;
 }
 
 export default interface ICreateSaleDTO {
@@ -25,7 +23,7 @@ export default interface ICreateSaleDTO {
     date: Date;
     company_id: string;
     employees: IEmployee[];
-    customer?: Customer;
+    customer_id?: string;
     products?: IProduct[];
     jobs?: IJob[];
 }

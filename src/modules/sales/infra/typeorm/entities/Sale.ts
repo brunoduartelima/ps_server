@@ -41,7 +41,7 @@ class Sales {
     customer: Customer;
 
     @Column()
-    customer_id: string;
+    customer_id?: string;
 
     @OneToMany(() => SalesEmployees, sale_employees => sale_employees.sale, {
         cascade: true,

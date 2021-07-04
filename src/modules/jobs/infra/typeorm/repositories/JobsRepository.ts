@@ -5,6 +5,10 @@ import ICreateJobDTO from '@modules/jobs/dtos/ICreateJobDTO';
 
 import Job from '../entities/Job';
 
+interface IFindJobs {
+    id: string;
+}
+
 class JobsRepository implements IJobsRepository {
     private ormRepository: Repository<Job>;
 
@@ -16,6 +20,16 @@ class JobsRepository implements IJobsRepository {
         const job = await this.ormRepository.findOne({ where: { id, company_id }, withDeleted: true });
 
         return job;
+    }
+
+    public async findAllById(jobs: IFindJobs[], company_id: string): Promise<Job[]> {
+        const jobIds = jobs.map(job => job.id);
+    
+        const existentJobs = await this.ormRepository.findByIds(jobIds, { 
+            where: { company_id }
+        });
+    
+        return existentJobs;
     }
 
     public async findAllJobsFromCompany(company_id: string, page: number): Promise<Job[] | undefined> {

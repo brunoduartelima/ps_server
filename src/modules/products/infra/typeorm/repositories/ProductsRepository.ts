@@ -1,9 +1,14 @@
-import { getRepository, Repository, ILike } from 'typeorm';
+import { getRepository, Repository, ILike, In } from 'typeorm';
 
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IUpdateProductsQuantityDTO from '@modules/products/dtos/IUpdateProductsQuantityDTO';
 
 import Product from '../entities/Product';
+
+interface IFindProducts {
+    id: string;
+}
 
 class ProductsRepository implements IProductsRepository {
     private ormRepository: Repository<Product>;
@@ -16,6 +21,16 @@ class ProductsRepository implements IProductsRepository {
         const product = await this.ormRepository.findOne({ where: { id, company_id }, withDeleted: true });
 
         return product;
+    }
+
+    public async findAllById(products: IFindProducts[], company_id: string): Promise<Product[]> {
+        const productIds = products.map(product => product.id);
+    
+        const existentProducts = await this.ormRepository.findByIds(productIds, { 
+            where: { company_id }
+        });
+    
+        return existentProducts;
     }
 
     public async findAllProductsFromCompany(company_id: string, page: number): Promise<Product[] | undefined> {
@@ -57,6 +72,10 @@ class ProductsRepository implements IProductsRepository {
         });
 
         return product;
+    }
+
+    public async updateQuantity(products: IUpdateProductsQuantityDTO[]): Promise<Product[]> {
+        return this.ormRepository.save(products);
     }
 
     public async create({ name, code, description, price, quantity, average_cost, company_id }: ICreateProductDTO): Promise<Product> {

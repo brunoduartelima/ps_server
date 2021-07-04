@@ -5,6 +5,10 @@ import ICreateEmployeeDTO from '@modules/employees/dtos/ICreateEmployeeDTO';
 
 import Employee from '../entities/Employee';
 
+interface IFindEmployees {
+    id: string;
+}
+
 class EmployeesRepository implements IEmployeesRepository {
     private ormRepository: Repository<Employee>;
 
@@ -16,6 +20,16 @@ class EmployeesRepository implements IEmployeesRepository {
         const employee = await this.ormRepository.findOne({ where: { id, company_id }, withDeleted: true });
 
         return employee;
+    }
+
+    public async findAllById(employees: IFindEmployees[], company_id: string): Promise<Employee[]> {
+        const employeeIds = employees.map(employee => employee.id);
+    
+        const existentEmployees = await this.ormRepository.findByIds(employeeIds, { 
+            where: { company_id }
+        });
+    
+        return existentEmployees;
     }
 
     public async findAllEmployeesFromCompany(company_id: string, page: number): Promise<Employee[] | undefined> {

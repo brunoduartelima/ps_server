@@ -49,7 +49,7 @@ class SalesRepository implements ISalesRepository {
         description, 
         date, 
         company_id, 
-        customer, 
+        customer_id, 
         employees, 
         products, 
         jobs }: ICreateSaleDTO): Promise<Sale> {
@@ -59,7 +59,7 @@ class SalesRepository implements ISalesRepository {
             description, 
             date, 
             company_id, 
-            customer, 
+            customer_id, 
             sale_employees: employees, 
             sale_products: products, 
             sale_jobs: jobs

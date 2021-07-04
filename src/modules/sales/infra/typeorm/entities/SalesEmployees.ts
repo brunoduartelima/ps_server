@@ -18,7 +18,7 @@ class SalesEmployees {
     id: string;
 
     @Column('decimal')
-    commission: number;
+    commission?: number;
   
     @ManyToOne(() => Sale, sale => sale.sale_employees)
     @JoinColumn({ name: 'sale_id' })
