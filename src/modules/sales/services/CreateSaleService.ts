@@ -86,13 +86,18 @@ class CreateSaleService {
         let serializedJobs = undefined;
 
         if(products?.length) {
-            const existentProducts = await this.productsRepository.findAllById(
+            var existentProducts = await this.productsRepository.findAllById(
                 products,
                 company_id
             );
 
             if(!existentProducts.length)
                 throw new AppError('Could not find any products with the given ids');
+
+            products.map(product => {
+                if(product.quantity <= 0 || !product.quantity)
+                    throw new AppError('Invalid or empty product quantity.');
+            });
 
             const existentProductsIds = existentProducts.map(product => product.id);
 
@@ -105,7 +110,7 @@ class CreateSaleService {
 
             const findProductsWithNoQuantityAvailable = products.filter(
                 product =>
-                existentProducts.filter(p => p.id === product.id)[0].quantity < product.quantity,
+                    existentProducts.filter(p => p.id === product.id)[0].quantity < product.quantity,
             );
             
             if(findProductsWithNoQuantityAvailable.length)
@@ -129,6 +134,11 @@ class CreateSaleService {
 
             if(!existentJobs.length)
                 throw new AppError('Could not find any jobs with the given ids');
+
+            jobs.map(job => {
+                if(job.quantity <= 0 || !job.quantity)
+                    throw new AppError('Invalid or empty job quantity.');
+            });
 
             const existentJobsIds = existentJobs.map(job => job.id);
 
@@ -157,7 +167,12 @@ class CreateSaleService {
         if(!existentEmployees.length)
             throw new AppError('Could not find any employees with the given ids');
 
-        const existentEmployeesIds = existentEmployees.map(employee => employee.id);
+        const existentEmployeesIds = existentEmployees.map(employee => {
+            if(employee.active !== true)
+                throw new AppError(`Employee ${employee.id} is disabled, cannot participate in the sale.`);
+            
+            return employee.id;
+        });
 
         const checkInexistentEmployees = employees.filter(
             employee => !existentEmployeesIds.includes(employee.id),
@@ -181,6 +196,18 @@ class CreateSaleService {
             products: serializedProducts,
             jobs: serializedJobs
         });
+
+        if(serializedProducts) {
+            const { sale_products } = sale;
+            
+            const orderedProductsQuantity = sale_products.map(product => ({
+                id: product.product_id,
+                quantity: existentProducts
+                    .filter(p => p.id === product.product_id)[0].quantity - product.quantity,
+            }));
+          
+            await this.productsRepository.updateQuantity(orderedProductsQuantity);
+        }
 
         return sale;
     }

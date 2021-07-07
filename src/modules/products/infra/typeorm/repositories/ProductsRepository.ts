@@ -75,7 +75,7 @@ class ProductsRepository implements IProductsRepository {
     }
 
     public async updateQuantity(products: IUpdateProductsQuantityDTO[]): Promise<Product[]> {
-        return this.ormRepository.save(products);
+        return await this.ormRepository.save(products);
     }
 
     public async create({ name, code, description, price, quantity, average_cost, company_id }: ICreateProductDTO): Promise<Product> {
@@ -87,7 +87,7 @@ class ProductsRepository implements IProductsRepository {
     }
 
     public async save(product: Product): Promise<Product> {
-        return this.ormRepository.save(product);
+        return await this.ormRepository.save(product);
     }
 
     public async softDelete(id: string): Promise<void> {

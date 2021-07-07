@@ -71,7 +71,7 @@ class SalesRepository implements ISalesRepository {
     }
 
     public async save(sale: Sale): Promise<Sale> {
-        return this.ormRepository.save(sale);
+        return await this.ormRepository.save(sale);
     }
 
     public async softDelete(id: string): Promise<void> {

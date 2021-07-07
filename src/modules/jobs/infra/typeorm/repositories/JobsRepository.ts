@@ -82,7 +82,7 @@ class JobsRepository implements IJobsRepository {
     }
 
     public async save(job: Job): Promise<Job> {
-        return this.ormRepository.save(job);
+        return await this.ormRepository.save(job);
     }
 
     public async softDelete(id: string): Promise<void> {

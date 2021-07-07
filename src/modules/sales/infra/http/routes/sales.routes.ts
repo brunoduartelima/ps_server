@@ -17,9 +17,28 @@ saleRouter.post('/',
             type: Joi.string().required(),
             description: Joi.string(),
             date: Joi.date().required(),
-            employees: Joi.array(),
-            products: Joi.array(),
-            jobs: Joi.array(),
+            employees: Joi.array().items(
+                Joi.object({
+                    id: Joi.string().uuid().required(),
+                    commission: Joi.number()
+                })
+            ),
+            products: Joi.array().items(
+                Joi.object({
+                    id: Joi.string().uuid().required(),
+                    quantity: Joi.number().required(),
+                    price: Joi.number().required(),
+                    descont: Joi.number()
+                })
+            ),
+            jobs: Joi.array().items(
+                Joi.object({
+                    id: Joi.string().uuid().required(),
+                    quantity: Joi.number().required(),
+                    price: Joi.number().required(),
+                    descont: Joi.number()
+                })
+            ),
             customer_id: Joi.string().uuid(),
         }
     }),

@@ -33,7 +33,7 @@ class CompaniesRepository implements ICompaniesRepository {
     }
 
     public async save(company: Company): Promise<Company> {
-        return this.ormRepository.save(company);
+        return await this.ormRepository.save(company);
     }
 }
 

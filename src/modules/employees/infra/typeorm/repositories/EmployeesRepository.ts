@@ -74,7 +74,7 @@ class EmployeesRepository implements IEmployeesRepository {
     }
 
     public async save(employee: Employee): Promise<Employee> {
-        return this.ormRepository.save(employee);
+        return await this.ormRepository.save(employee);
     }
 
     public async softDelete(id: string): Promise<void> {

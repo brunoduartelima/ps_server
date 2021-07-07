@@ -107,7 +107,7 @@ class CustomersRepository implements ICustomersRepository {
     }
 
     public async save(customer: Customer): Promise<Customer> {
-        return this.ormRepository.save(customer);
+        return await this.ormRepository.save(customer);
     }
 
     public async softDelete(id: string): Promise<void> {
