@@ -1,23 +1,23 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-// import FindNewlyAddSalesService from '@modules/sales/services/FindNewlyAddSalesService';
+import FindNewlyAddSalesService from '@modules/sales/services/FindNewlyAddSalesService';
 import CreateSaleService from '@modules/sales/services/CreateSaleService';
 // import UpdateSaleService from '@modules/sales/services/UpdateSaleService';
 // import DeleteSaleService from '@modules/sales/services/DeleteSaleService';
 // import RestoreSaleService from '@modules/sales/services/RestoreSaleService';
 
 export default class SalessController {
-    // public async index(request: Request, response: Response): Promise<Response> {
-    //     const { company_id } = request.token;
+    public async index(request: Request, response: Response): Promise<Response> {
+        const { company_id } = request.token;
 
-    //     const findProducts = container.resolve(FindNewlyAddProductsService);
+        const findSales = container.resolve(FindNewlyAddSalesService);
 
-    //     const products = await findProducts.execute({ company_id });
+        const sales = await findSales.execute({ company_id });
 
-    //     return response.json(products);
+        return response.json(sales);
 
-    // }
+    }
 
     public async create(request: Request, response: Response): Promise<Response> {
         const { company_id } = request.token;

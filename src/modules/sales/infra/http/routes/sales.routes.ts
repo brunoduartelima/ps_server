@@ -9,7 +9,7 @@ const saleController = new SalesController();
 
 saleRouter.use(ensureAuthenticated);
 
-// saleRouter.get('/', saleController.index);
+saleRouter.get('/', saleController.index);
 
 saleRouter.post('/',
     celebrate({
