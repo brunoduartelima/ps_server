@@ -94,7 +94,7 @@ class CreateSaleService {
             if(!existentProducts.length)
                 throw new AppError('Could not find any products with the given ids');
 
-            products.map(product => {
+            products.forEach(product => {
                 if(product.quantity <= 0 || !product.quantity)
                     throw new AppError('Invalid or empty product quantity.');
             });

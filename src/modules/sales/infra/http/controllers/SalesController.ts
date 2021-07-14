@@ -3,8 +3,8 @@ import { container } from 'tsyringe';
 
 import FindNewlyAddSalesService from '@modules/sales/services/FindNewlyAddSalesService';
 import CreateSaleService from '@modules/sales/services/CreateSaleService';
-// import UpdateSaleService from '@modules/sales/services/UpdateSaleService';
-// import DeleteSaleService from '@modules/sales/services/DeleteSaleService';
+import UpdateSaleService from '@modules/sales/services/UpdateSaleService';
+import DeleteSaleService from '@modules/sales/services/DeleteSaleService';
 // import RestoreSaleService from '@modules/sales/services/RestoreSaleService';
 
 export default class SalessController {
@@ -46,37 +46,45 @@ export default class SalessController {
         return response.json(sale);
     }
 
-    // public async update(request: Request, response: Response): Promise<Response> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
-    //     const { name, code, description, price, quantity, average_cost, } = request.body;
+    public async update(request: Request, response: Response): Promise<Response> {
+        const { company_id } = request.token;
+        const { id } = request.params;
+        const {   
+            type, 
+            description, 
+            date,
+            customer_id, 
+            employees, 
+            products, 
+            jobs } = request.body;
 
-    //     const updateProduct = container.resolve(UpdateProductService);
+        const updateSale = container.resolve(UpdateSaleService);
 
-    //     const product = await updateProduct.execute({
-    //         id,
-    //         name, 
-    //         code, 
-    //         description, 
-    //         price, 
-    //         quantity, 
-    //         average_cost, 
-    //         company_id
-    //     });
+        const sale = await updateSale.execute({
+            id,
+            type, 
+            description, 
+            date,
+            customer_id, 
+            employees, 
+            products, 
+            jobs, 
+            company_id
+        });
 
-    //     return response.json(product);
-    // }
+        return response.json(sale);
+    }
 
-    // public async delete(request: Request, response: Response): Promise<void> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
+    public async delete(request: Request, response: Response): Promise<void> {
+        const { company_id } = request.token;
+        const { id } = request.params;
 
-    //     const deleteProduct = container.resolve(DeleteProductService);
+        const deleteSale = container.resolve(DeleteSaleService);
 
-    //     await deleteProduct.execute({ id, company_id });
+        await deleteSale.execute({ id, company_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 
     // public async restore(request: Request, response: Response): Promise<void> {
     //     const { company_id } = request.token;

@@ -75,7 +75,7 @@ class SalesRepository implements ISalesRepository {
     }
 
     public async softDelete(id: string): Promise<void> {
-        await this.ormRepository.softDelete(id);
+        await this.ormRepository.softDelete(id)
     }
 
     public async restore(id: string): Promise<void> {

@@ -38,7 +38,7 @@ class Sales {
 
     @ManyToOne(() => Customer)
     @JoinColumn({ name: 'customer_id' })
-    customer: Customer;
+    customer?: Customer;
 
     @Column()
     customer_id?: string;
