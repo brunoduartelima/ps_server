@@ -1,4 +1,4 @@
-import { getConnection, getRepository, Repository, Transaction } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import ISalesRelationshipsRepository from '@modules/sales/repositories/ISalesRelationshipsRepository';
 import ICreateSaleJobsDTO from "@modules/sales/dtos/ICreateSaleJobsDTO";
