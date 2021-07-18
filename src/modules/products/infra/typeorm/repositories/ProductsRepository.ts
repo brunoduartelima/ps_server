@@ -1,4 +1,4 @@
-import { getRepository, Repository, ILike, In } from 'typeorm';
+import { getRepository, Repository, ILike } from 'typeorm';
 
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
