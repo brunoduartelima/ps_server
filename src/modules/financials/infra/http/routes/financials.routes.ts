@@ -44,22 +44,22 @@ financialRouter.put('/:id',
     financialController.update
 );
 
-// financialRouter.delete('/:id', 
-//     celebrate({
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }),
-//     financialController.delete
-// );
+financialRouter.delete('/:id', 
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    financialController.delete
+);
 
-// financialRouter.put('/restore/:id',
-//     celebrate({
-//         [Segments.PARAMS]: {
-//             id: Joi.string().uuid().required(),
-//         }
-//     }),
-//     financialController.restore
-// );
+financialRouter.put('/restore/:id',
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    financialController.restore
+);
 
 export default financialRouter;

@@ -4,8 +4,8 @@ import { container } from 'tsyringe';
 import FindNewlyAddFinancialsService from '@modules/financials/services/FindNewlyAddFinancialsService';
 import CreateFinancialService from '@modules/financials/services/CreateFinancialService';
 import UpdateFinancialService from '@modules/financials/services/UpdateFinancialService';
-// import DeleteFinancialService from '@modules/financials/services/DeleteFinancialService';
-// import RestoreFinancialService from '@modules/financials/services/RestoreFinancialService';
+import DeleteFinancialService from '@modules/financials/services/DeleteFinancialService';
+import RestoreFinancialService from '@modules/financials/services/RestoreFinancialService';
 
 export default class FinancialsController {
     public async index(request: Request, response: Response): Promise<Response> {
@@ -77,25 +77,25 @@ export default class FinancialsController {
         return response.json(financial);
     }
 
-    // public async delete(request: Request, response: Response): Promise<void> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
+    public async delete(request: Request, response: Response): Promise<void> {
+        const { company_id } = request.token;
+        const { id } = request.params;
 
-    //     const deleteProduct = container.resolve(DeleteProductService);
+        const deleteFinancial = container.resolve(DeleteFinancialService);
 
-    //     await deleteProduct.execute({ id, company_id });
+        await deleteFinancial.execute({ id, company_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 
-    // public async restore(request: Request, response: Response): Promise<void> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
+    public async restore(request: Request, response: Response): Promise<void> {
+        const { company_id } = request.token;
+        const { id } = request.params;
 
-    //     const restoreProduct = container.resolve(RestoreProductService);
+        const restoreFinancial = container.resolve(RestoreFinancialService);
 
-    //     await restoreProduct.execute({ id, company_id });
+        await restoreFinancial.execute({ id, company_id });
 
-    //     response.status(200).send();
-    // }
+        response.status(200).send();
+    }
 }
