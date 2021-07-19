@@ -1,23 +1,23 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-// import FindNewlyAddFinancialsService from '@modules/financials/services/FindNewlyAddFinancialsService';
+import FindNewlyAddFinancialsService from '@modules/financials/services/FindNewlyAddFinancialsService';
 import CreateFinancialService from '@modules/financials/services/CreateFinancialService';
 import UpdateFinancialService from '@modules/financials/services/UpdateFinancialService';
 // import DeleteFinancialService from '@modules/financials/services/DeleteFinancialService';
 // import RestoreFinancialService from '@modules/financials/services/RestoreFinancialService';
 
 export default class FinancialsController {
-    // public async index(request: Request, response: Response): Promise<Response> {
-    //     const { company_id } = request.token;
+    public async index(request: Request, response: Response): Promise<Response> {
+        const { company_id } = request.token;
 
-    //     const findFinancials = container.resolve(FindNewlyAddFinancialsService);
+        const findFinancials = container.resolve(FindNewlyAddFinancialsService);
 
-    //     const products = await findProducts.execute({ company_id });
+        const financials = await findFinancials.execute({ company_id });
 
-    //     return response.json(products);
+        return response.json(financials);
 
-    // }
+    }
 
     public async create(request: Request, response: Response): Promise<Response> {
         const { company_id } = request.token;

@@ -9,7 +9,7 @@ const financialController = new FinancialsController();
 
 financialRouter.use(ensureAuthenticated);
 
-// financialRouter.get('/', financialController.index);
+financialRouter.get('/', financialController.index);
 
 financialRouter.post('/',
     celebrate({
