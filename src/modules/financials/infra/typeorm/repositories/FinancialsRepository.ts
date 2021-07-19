@@ -61,6 +61,7 @@ class FinancialsRepository implements IFinancialsRepository {
 
     public async create({ 
         title, 
+        type,
         description, 
         value, 
         parcel_mount, 
@@ -70,7 +71,8 @@ class FinancialsRepository implements IFinancialsRepository {
         
         const financial = this.ormRepository
             .create({ 
-                title, 
+                title,
+                type, 
                 description, 
                 value, 
                 parcel_mount, 

@@ -30,6 +30,9 @@ import SalesRepository from '@modules/sales/infra/typeorm/repositories/SalesRepo
 import ISalesRelationshipsRepository from '@modules/sales/repositories/ISalesRelationshipsRepository';
 import SalesRelationshipsRepository from '@modules/sales/infra/typeorm/repositories/SalesRelationshipsRepository';
 
+import IFinancialsRepository from '@modules/financials/repositories/IFinancialsRepository';
+import FinancialsRepository from '@modules/financials/infra/typeorm/repositories/FinancialsRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IUserTokensRepository>('UserTokensRepository', UserTokensRepository);
@@ -47,3 +50,5 @@ container.registerSingleton<IJobsRepository>('JobsRepository', JobsRepository);
 container.registerSingleton<ISalesRepository>('SalesRepository', SalesRepository);
 
 container.registerSingleton<ISalesRelationshipsRepository>('SalesRelationshipsRepository', SalesRelationshipsRepository);
+
+container.registerSingleton<IFinancialsRepository>('FinancialsRepository', FinancialsRepository);

@@ -1,4 +1,4 @@
-export default interface ICreateProductDTO {
+export default interface ICreateFinancialDTO {
     title: string;
     description?: string;
     value: number;

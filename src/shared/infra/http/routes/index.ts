@@ -15,6 +15,7 @@ import jobsRouter from '@modules/jobs/infra/http/routes/jobs.routes';
 import searchJobsRouter from '@modules/jobs/infra/http/routes/search.routes';
 import salesRouter from '@modules/sales/infra/http/routes/sales.routes';
 import searchSalesRouter from '@modules/sales/infra/http/routes/search.routes';
+import financialsRouter from '@modules/financials/infra/http/routes/financials.routes';
 
 const routes = Router();
 
@@ -33,5 +34,6 @@ routes.use('/jobs', jobsRouter);
 routes.use('/jobs/search', searchJobsRouter);
 routes.use('/sales', salesRouter);
 routes.use('/sales/search', searchSalesRouter);
+routes.use('/financials', financialsRouter);
 
 export default routes;
