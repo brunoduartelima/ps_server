@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 // import FindNewlyAddFinancialsService from '@modules/financials/services/FindNewlyAddFinancialsService';
 import CreateFinancialService from '@modules/financials/services/CreateFinancialService';
-// import UpdateFinancialService from '@modules/financials/services/UpdateFinancialService';
+import UpdateFinancialService from '@modules/financials/services/UpdateFinancialService';
 // import DeleteFinancialService from '@modules/financials/services/DeleteFinancialService';
 // import RestoreFinancialService from '@modules/financials/services/RestoreFinancialService';
 
@@ -47,26 +47,35 @@ export default class FinancialsController {
         return response.json(financial);
     }
 
-    // public async update(request: Request, response: Response): Promise<Response> {
-    //     const { company_id } = request.token;
-    //     const { id } = request.params;
-    //     const { name, code, description, price, quantity, average_cost, } = request.body;
+    public async update(request: Request, response: Response): Promise<Response> {
+        const { company_id } = request.token;
+        const { id } = request.params;
+        const {             
+            title, 
+            type,
+            description, 
+            value, 
+            parcel_mount, 
+            due_date, 
+            active 
+        } = request.body;
 
-    //     const updateProduct = container.resolve(UpdateProductService);
+        const updateFinancial = container.resolve(UpdateFinancialService);
 
-    //     const product = await updateProduct.execute({
-    //         id,
-    //         name, 
-    //         code, 
-    //         description, 
-    //         price, 
-    //         quantity, 
-    //         average_cost, 
-    //         company_id
-    //     });
+        const financial = await updateFinancial.execute({
+            id,
+            title, 
+            type,
+            description, 
+            value, 
+            parcel_mount, 
+            due_date, 
+            active, 
+            company_id
+        });
 
-    //     return response.json(product);
-    // }
+        return response.json(financial);
+    }
 
     // public async delete(request: Request, response: Response): Promise<void> {
     //     const { company_id } = request.token;

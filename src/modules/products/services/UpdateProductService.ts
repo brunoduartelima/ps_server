@@ -46,7 +46,7 @@ class UpdateProductService {
             product.quantity = quantity; 
             product.average_cost = average_cost;
 
-        return this.productsRepository.save(product);
+        return await this.productsRepository.save(product);
     }
 
 }
