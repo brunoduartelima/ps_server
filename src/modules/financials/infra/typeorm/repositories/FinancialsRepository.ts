@@ -43,7 +43,7 @@ class FinancialsRepository implements IFinancialsRepository {
         const financials = this.ormRepository.find({
             where: {
                 company_id,
-                name: ILike(`%${title}%`)
+                title: ILike(`%${title}%`)
             },
             order: { title: 'ASC'}
         });
