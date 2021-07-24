@@ -1,18 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
+import authConfig from '@config/auth';
 
 interface TokenPayload {
-    iat: number;
-    exp: number;
-    sub: string;
-    user: string;
     access_level: string;
 }
 
-export default function ensureAuthenticated(
+export default function accessPermissions(
     request: Request,
     response: Response,
     next: NextFunction,
@@ -27,13 +23,10 @@ export default function ensureAuthenticated(
     try {
         const decoded = verify(token, authConfig.jwt.secret);
 
-        const { sub, user, access_level } = decoded as TokenPayload;
+        const { access_level } = decoded as TokenPayload;
 
-        request.token = {
-            user_id: user,
-            company_id: sub,
-            access_level: access_level
-        };
+        if(access_level !== 'master')
+            throw new AppError('Access denied. Out of your permissions', 401);
 
         return next();
     } catch {

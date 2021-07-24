@@ -53,7 +53,7 @@ class AuthenticateUserService {
 
         const { secret, expiresIn } = authConfig.jwt;
 
-        const token = sign({ user: user.id }, secret, {
+        const token = sign({ user: user.id, access_level: 'master' }, secret, {
             subject: company.id,
             expiresIn,
         });

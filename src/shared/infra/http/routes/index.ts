@@ -17,6 +17,7 @@ import salesRouter from '@modules/sales/infra/http/routes/sales.routes';
 import searchSalesRouter from '@modules/sales/infra/http/routes/search.routes';
 import financialsRouter from '@modules/financials/infra/http/routes/financials.routes';
 import searchFinancialsRouter from '@modules/financials/infra/http/routes/search.routes';
+import usersEmployeesRouter from '@modules/users-employees/infra/http/routes/usersEmployees.routes';
 
 const routes = Router();
 
@@ -37,5 +38,6 @@ routes.use('/sales', salesRouter);
 routes.use('/sales/search', searchSalesRouter);
 routes.use('/financials', financialsRouter);
 routes.use('/financials/search', searchFinancialsRouter);
+routes.use('/users-employees', usersEmployeesRouter);
 
 export default routes;
