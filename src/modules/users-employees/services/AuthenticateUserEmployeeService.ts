@@ -53,7 +53,7 @@ class AuthenticateUserService {
         if(employee.active === false || employee.deleted_at !== null)
             throw new AppError('This employee is disabled.');
 
-        const company = await this.companiesRepository.findCompany(userEmployee.company_id);
+        const company = await this.companiesRepository.findById(userEmployee.company_id);
 
         if (!company)
             throw new AppError('Company not found.');

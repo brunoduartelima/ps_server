@@ -26,10 +26,10 @@ export default function accessPermissions(
         const { access_level } = decoded as TokenPayload;
 
         if(access_level !== 'master')
-            throw new AppError('Access denied. Out of your permissions', 401);
+            throw new AppError('Access denied');
 
         return next();
     } catch {
-        throw new AppError('Invalid JWT token', 401);
+        throw new AppError('Access denied. Out of your permissions', 401);
     }
 }

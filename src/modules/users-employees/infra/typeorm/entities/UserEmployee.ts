@@ -13,8 +13,8 @@ import { Exclude } from 'class-transformer';
 import Company from '@modules/companies/infra/typeorm/entities/Company';
 import Employee from '@modules/employees/infra/typeorm/entities/Employee';
 
-@Entity('users')
-class User {
+@Entity('users_employees')
+class UserEmployee {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -49,4 +49,4 @@ class User {
     deleted_at: Date;
 }
 
-export default User;
+export default UserEmployee;
