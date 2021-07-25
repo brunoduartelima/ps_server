@@ -9,8 +9,26 @@ import accessPermissions from '@modules/users/infra/http/middlewares/accessPermi
 const usersEmployeesRouter = Router();
 const usersEmployeesController = new UsersEmployeesController();
 
-usersEmployeesRouter.use(accessPermissions)
+usersEmployeesRouter.use(accessPermissions);
 usersEmployeesRouter.use(ensureAuthenticated);
+
+usersEmployeesRouter.put('/',
+    celebrate({
+        [Segments.BODY]: {
+            email: Joi.string().email().required(),
+            old_password: Joi.string(),
+            password: Joi.when('old_password', {
+            is: Joi.exist(),
+            then: Joi.required(),
+            }),
+            password_confirmation: Joi.when('password', {
+            is: Joi.exist(),
+            then: Joi.valid(Joi.ref('password')).required(),
+            }),
+        },
+    }),
+    usersEmployeesController.update
+);
 
 usersEmployeesRouter.post('/',
     celebrate({
@@ -22,5 +40,7 @@ usersEmployeesRouter.post('/',
     }), 
     usersEmployeesController.create
 );
+
+
 
 export default usersEmployeesRouter;
