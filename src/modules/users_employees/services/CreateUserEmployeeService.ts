@@ -5,7 +5,7 @@ import IUsersEmployeesRepository from '../repositories/IUsersEmployeesRepository
 import IHashProvider from '../../users/providers/HashProvider/models/IHashProvider';
 import IEmployeesRepository from '@modules/employees/repositories/IEmployeesRepository';
 
-import UserEmployee from '@modules/users-employees/infra/typeorm/entities/UserEmployee';
+import UserEmployee from '@modules/users_employees/infra/typeorm/entities/UserEmployee';
 
 interface IRequest {
     email: string;

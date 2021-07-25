@@ -1,7 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
-import IUsersEmployeesRepository from '@modules/users-employees/repositories/IUsersEmployeesRepository';
-import ICreateUserEmployeeDTO from '@modules/users-employees/dtos/ICreateUserEmployeeDTO';
+import IUsersEmployeesRepository from '@modules/users_employees/repositories/IUsersEmployeesRepository';
+import ICreateUserEmployeeDTO from '@modules/users_employees/dtos/ICreateUserEmployeeDTO';
 
 import UserEmployee from '../entities/UserEmployee';
 
@@ -22,6 +22,17 @@ class UsersEmployeesRepository implements IUsersEmployeesRepository {
         const user = await this.ormRepository.findOne(id);
 
         return user;
+    }
+
+    public async findAllUsersEmployeesFromCompany(company_id: string, page: number): Promise<UserEmployee[] | undefined> {
+        const users = await this.ormRepository.find({ 
+            where: { company_id }, 
+            order: { email:'ASC' },
+            take: 30,
+            skip: (page - 1) * 30
+        });
+
+        return users;
     }
 
     public async create({ email, password, employee_id, company_id }: ICreateUserEmployeeDTO): Promise<UserEmployee> {

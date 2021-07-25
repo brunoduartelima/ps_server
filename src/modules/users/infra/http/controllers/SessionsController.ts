@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
-import AuthenticateUserEmployeeService from '@modules/users-employees/services/AuthenticateUserEmployeeService';
+import AuthenticateUserEmployeeService from '@modules/users_employees/services/AuthenticateUserEmployeeService';
 
 export default class SessionsController {
     public async create(request: Request, response: Response): Promise<Response> {

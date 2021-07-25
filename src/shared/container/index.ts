@@ -33,8 +33,8 @@ import SalesRelationshipsRepository from '@modules/sales/infra/typeorm/repositor
 import IFinancialsRepository from '@modules/financials/repositories/IFinancialsRepository';
 import FinancialsRepository from '@modules/financials/infra/typeorm/repositories/FinancialsRepository';
 
-import IUsersEmployeesRepository from '@modules/users-employees/repositories/IUsersEmployeesRepository';
-import UsersEmployeesRepository from '@modules/users-employees/infra/typeorm/repositories/UsersEmployeesRepository';
+import IUsersEmployeesRepository from '@modules/users_employees/repositories/IUsersEmployeesRepository';
+import UsersEmployeesRepository from '@modules/users_employees/infra/typeorm/repositories/UsersEmployeesRepository';
 
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
