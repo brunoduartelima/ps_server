@@ -5,12 +5,14 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 
 import FindFinancialByTitleController from '@modules/financials/infra/http/controllers/FindFinancialByTitleController';
 import FindAllFinancialsFromCompanyController from '../controllers/FindAllFinancialsFromComapnyController';
+import accessPermissions from '@modules/users/infra/http/middlewares/accessPermissions';
 
 const searchFinancialsRouter = Router();
 const findFinancialByTitleController = new FindFinancialByTitleController();
 const findAllFinancialsFromCompanyController = new FindAllFinancialsFromCompanyController();
 
 searchFinancialsRouter.use(ensureAuthenticated);
+searchFinancialsRouter.use(accessPermissions);
 
 searchFinancialsRouter.get('/', 
     celebrate({

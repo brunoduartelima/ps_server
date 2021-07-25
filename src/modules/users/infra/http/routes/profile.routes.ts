@@ -4,11 +4,13 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import ProfileController from '../controllers/ProfileController';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import accessPermissions from '../middlewares/accessPermissions';
 
 const profileRouter = Router();
 const profileController = new ProfileController();
 
 profileRouter.use(ensureAuthenticated);
+profileRouter.use(accessPermissions);
 
 profileRouter.get('/', profileController.show);
 

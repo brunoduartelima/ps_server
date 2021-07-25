@@ -3,6 +3,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import CompaniesController from '../controllers/CompaniesController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import accessPermissions from '@modules/users/infra/http/middlewares/accessPermissions';
 
 const companiesRouter = Router();
 const companiesController = new CompaniesController();
@@ -23,6 +24,7 @@ companiesRouter.post('/:user_id',
 );
 
 companiesRouter.use(ensureAuthenticated);
+companiesRouter.use(accessPermissions);
 
 companiesRouter.get('/', companiesController.index);
 

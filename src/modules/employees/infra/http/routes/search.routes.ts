@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import accessPermissions from '@modules/users/infra/http/middlewares/accessPermissions';
 
 import FindEmployeeByNameController from '@modules/employees/infra/http/controllers/FindEmployeeByNameController';
 import FindAllEmployeesFromCompanyController from '../controllers/FindAllEmployeesFromCompanyController';
@@ -11,6 +12,7 @@ const findEmployeeByNameController = new FindEmployeeByNameController();
 const findAllEmployeesFromCompanyController = new FindAllEmployeesFromCompanyController();
 
 searchEmployeesRouter.use(ensureAuthenticated);
+searchEmployeesRouter.use(accessPermissions);
 
 searchEmployeesRouter.get('/', 
     celebrate({

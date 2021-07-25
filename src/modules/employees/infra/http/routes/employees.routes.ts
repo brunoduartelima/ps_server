@@ -3,11 +3,13 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import EmployeesController from '../controllers/EmployeesController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import accessPermissions from '@modules/users/infra/http/middlewares/accessPermissions';
 
 const employeesRouter = Router();
 const employeesController = new EmployeesController();
 
 employeesRouter.use(ensureAuthenticated);
+employeesRouter.use(accessPermissions);
 
 employeesRouter.get('/', employeesController.index);
 

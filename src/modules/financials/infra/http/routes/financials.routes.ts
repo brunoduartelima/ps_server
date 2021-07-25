@@ -3,11 +3,13 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import FinancialsController from '../controllers/FinancialsController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import accessPermissions from '@modules/users/infra/http/middlewares/accessPermissions';
 
 const financialRouter = Router();
 const financialController = new FinancialsController();
 
 financialRouter.use(ensureAuthenticated);
+financialRouter.use(accessPermissions);
 
 financialRouter.get('/', financialController.index);
 
