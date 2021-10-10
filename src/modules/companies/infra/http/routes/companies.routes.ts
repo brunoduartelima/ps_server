@@ -23,12 +23,11 @@ companiesRouter.post('/:user_id',
     companiesController.create
 );
 
-companiesRouter.use(ensureAuthenticated);
-companiesRouter.use(accessPermissions);
-
-companiesRouter.get('/', companiesController.index);
+companiesRouter.get('/', accessPermissions, ensureAuthenticated, companiesController.index);
 
 companiesRouter.put('/',
+    accessPermissions, 
+    ensureAuthenticated,
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),

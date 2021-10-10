@@ -7,6 +7,7 @@ import Customer from '../infra/typeorm/entities/Customer';
 
 interface IRequest {
     name: string;
+    page: number;
     company_id: string;
 }
 
@@ -17,8 +18,8 @@ class FindCustomerByNameService {
         private customersRepository: ICustomersRepository,
     ) {}
 
-    public async execute({ company_id, name }: IRequest): Promise<Customer[]> {
-        const customers = await this.customersRepository.findCustomerByName(company_id, name);
+    public async execute({ company_id, name, page }: IRequest): Promise<[Customer[], number]> {
+        const customers = await this.customersRepository.findCustomerByName(company_id, name, page);
 
         if(!customers)
             throw new AppError('Customers not found');

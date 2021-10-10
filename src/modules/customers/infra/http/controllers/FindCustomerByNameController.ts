@@ -6,11 +6,11 @@ import FindCustomerByNameService from '@modules/customers/services/FindCustomerB
 export default class FindCustomerByNameController {
     public async index(request: Request, response: Response): Promise<Response> {
         const { company_id } = request.token;
-        const { name } = request.query;
+        const { name, page = 1 } = request.query;
 
         const findCustomers = container.resolve(FindCustomerByNameService);
 
-        const customers = await findCustomers.execute({ company_id, name: String(name) });
+        const customers = await findCustomers.execute({ company_id, name: String(name), page: Number(page) });
 
         return response.json(customers);
 

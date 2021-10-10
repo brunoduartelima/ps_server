@@ -17,7 +17,7 @@ class FindAllCustomersFromCompanyService {
         private customersRepository: ICustomersRepository,
     ) {}
 
-    public async execute({ company_id, page }: IRequest): Promise<Customer[]> {
+    public async execute({ company_id, page }: IRequest): Promise<[Customer[], number]> {
         const customers = await this.customersRepository.findAllCustomersFromCompany(company_id, page);
 
         if(!customers)

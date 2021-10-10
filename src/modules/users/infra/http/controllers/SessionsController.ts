@@ -12,21 +12,21 @@ export default class SessionsController {
         if(type_user === 'master') {
             const authenticateUser = container.resolve(AuthenticateUserService);
 
-            const { user, token } = await authenticateUser.execute({
+            const { company, user, token } = await authenticateUser.execute({
                 email,
                 password,
             });
     
-            return response.json({ user: classToClass(user), token });
+            return response.json({ company, user: classToClass(user), token });
         } else {
             const authenticateUser = container.resolve(AuthenticateUserEmployeeService);
 
-            const { user, token } = await authenticateUser.execute({
+            const { company, user, token } = await authenticateUser.execute({
                 email,
                 password,
             });
     
-            return response.json({ user: classToClass(user), token });
+            return response.json({ company, user: classToClass(user), token });
         }
     }
 }

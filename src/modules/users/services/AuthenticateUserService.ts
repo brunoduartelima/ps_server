@@ -40,16 +40,16 @@ class AuthenticateUserService {
 
         if (!user)
             throw new AppError('Incorrect email/password combination.', 401);
-                
-        const company = await this.companiesRepository.findCompany(user.id);
-        
-        if (!company)
-            throw new AppError('User has not completed all registration steps.', 401);
 
         const passwordMatched = await this.hashProvider.compareHash(password, user.password);
 
         if (!passwordMatched)
             throw new AppError('Incorrect email/password combination.', 401);
+
+        const company = await this.companiesRepository.findCompany(user.id);
+        
+        if (!company)
+            throw new AppError(`Cannot enter application due to lack of basic data user:${user.id}`, 303);
 
         const { secret, expiresIn } = authConfig.jwt;
 

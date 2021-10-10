@@ -25,14 +25,14 @@ class CustomersRepository implements ICustomersRepository {
         return customer;
     }
 
-    public async findAllCustomersFromCompany(company_id: string, page: number): Promise<Customer[] | undefined> {
+    public async findAllCustomersFromCompany(company_id: string, page: number): Promise<[Customer[], number] | undefined> {
         const customers = await this.ormRepository.createQueryBuilder('customer')
         .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
         .where('company.company_id = :company_id', { company_id })
         .orderBy('customer.name', 'ASC')
-        .take(30)
-        .skip((page - 1 )* 30)
-        .getMany()
+        .take(10)
+        .skip((page - 1 )* 10)
+        .getManyAndCount()
 
         return customers;
     }
@@ -42,19 +42,21 @@ class CustomersRepository implements ICustomersRepository {
         .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
         .where('company.company_id = :company_id', { company_id })
         .orderBy('customer.created_at', 'DESC')
-        .take(15)
+        .take(10)
         .getMany()
 
         return customers;
     }
 
-    public async findCustomerByName(company_id: string, name: string): Promise<Customer[] | undefined> {
+    public async findCustomerByName(company_id: string, name: string, page: number): Promise<[Customer[], number] | undefined> {
         const customers = await this.ormRepository.createQueryBuilder('customer')
         .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
-        .where('customer.name ilike :name', { name: `%${name}%` })
-        .andWhere('company.company_id = :company_id', { company_id })
-        .orderBy({ name: 'ASC' })
-        .getMany()
+        .where('company.company_id = :company_id', { company_id })
+        .andWhere('customer.name ilike :name', { name: `%${name}%` })
+        .orderBy('customer.name', 'ASC')
+        .take(10)
+        .skip((page - 1 )* 10)
+        .getManyAndCount()
 
         return customers;
     }

@@ -43,7 +43,7 @@ class AuthenticateUserService {
         const userEmployee = await this.usersEmployeesRepository.findByEmail(email);
 
         if (!userEmployee)
-            throw new AppError('Incorrect email combination.', 401);
+            throw new AppError('Incorrect email/password combination.', 401);
 
         const employee = await this.employeesRepository.findById(userEmployee.employee_id, userEmployee.company_id);
 
@@ -61,7 +61,7 @@ class AuthenticateUserService {
         const passwordMatched = await this.hashProvider.compareHash(password, userEmployee.password);
 
         if (!passwordMatched)
-            throw new AppError('Incorrect password combination.', 401);
+            throw new AppError('Incorrect email/password combination.', 401);
 
         const { secret, expiresIn } = authConfig.jwt;
 
