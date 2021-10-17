@@ -27,9 +27,6 @@ class UpdateEmployeeService {
 
         if(!employee)
             throw new AppError('Employee not found');
-        
-        if(employee.deleted_at !== null)
-            throw new AppError('Employee deleted, operation not permitted');
 
         employee.name = name;
         employee.salary = salary;

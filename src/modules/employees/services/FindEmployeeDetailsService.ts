@@ -1,31 +1,31 @@
 import { inject, injectable } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
-
 import IEmployeesRepository from '../repositories/IEmployeesRepository';
 import Employee from '../infra/typeorm/entities/Employee';
 
+import AppError from '@shared/errors/AppError';
+
 interface IRequest {
+    id: string;
     company_id: string;
-    page: number;
 }
 
 @injectable()
-class FindAllEmployeesFromCompanyService {
+class FindEmployeeDetailsService {
     constructor(
         @inject('EmployeesRepository')
         private employeesRepository: IEmployeesRepository,
     ) {}
 
-    public async execute({ company_id, page }: IRequest): Promise<[Employee[], number]> {
-        const employees = await this.employeesRepository.findAllEmployeesFromCompany(company_id, page);
+    public async execute({ id, company_id }: IRequest): Promise<Employee> {
+        const employee = await this.employeesRepository.findById(id, company_id);
 
-        if(!employees)
+        if(!employee)
             throw new AppError('Employee not found');
 
-        return employees;
+        return employee;
     }
 
 }
 
-export default FindAllEmployeesFromCompanyService;
+export default FindEmployeeDetailsService;

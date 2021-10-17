@@ -18,6 +18,7 @@ searchEmployeesRouter.get('/',
     celebrate({
         [Segments.QUERY]: {
             name: Joi.string().required(),
+            page: Joi.number().required()
         }
     }),
     findEmployeeByNameController.index

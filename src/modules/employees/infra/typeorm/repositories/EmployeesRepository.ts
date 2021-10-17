@@ -17,7 +17,7 @@ class EmployeesRepository implements IEmployeesRepository {
     }
 
     public async findById(id: string, company_id: string): Promise<Employee | undefined> {
-        const employee = await this.ormRepository.findOne({ where: { id, company_id }, withDeleted: true });
+        const employee = await this.ormRepository.findOne({ where: { id, company_id } });
 
         return employee;
     }
@@ -32,12 +32,13 @@ class EmployeesRepository implements IEmployeesRepository {
         return existentEmployees;
     }
 
-    public async findAllEmployeesFromCompany(company_id: string, page: number): Promise<Employee[] | undefined> {
-        const employees = await this.ormRepository.find({ 
+    public async findAllEmployeesFromCompany(company_id: string, page: number): Promise<[Employee[], number] | undefined> {
+        const employees = await this.ormRepository.findAndCount({ 
             where: { company_id }, 
             order: { name:'ASC' },
-            take: 30,
-            skip: (page - 1) * 30
+            take: 10,
+            skip: (page - 1) * 10,
+            
         });
 
         return employees;
@@ -47,19 +48,21 @@ class EmployeesRepository implements IEmployeesRepository {
         const employees = await this.ormRepository.find({ 
             where: { company_id }, 
             order: { created_at: 'DESC' },
-            take: 15
+            take: 10
         });
 
         return employees;
     }
 
-    public async findEmployeeByName(company_id: string, name: string): Promise<Employee[] | undefined> {
-        const employees = this.ormRepository.find({
+    public async findEmployeeByName(company_id: string, name: string, page: number): Promise<[Employee[], number] | undefined> {
+        const employees = this.ormRepository.findAndCount({
             where: {
                 company_id,
                 name: ILike(`%${name}%`)
             },
-            order: { name: 'ASC'}
+            order: { name: 'ASC'},
+            take: 10,
+            skip: (page - 1) * 10,
         });
 
         return employees;
