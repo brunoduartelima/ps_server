@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { celebrate, Joi, Segments } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import accessPermissions from '@modules/users/infra/http/middlewares/accessPermissions';
@@ -12,12 +11,7 @@ const findAllUsersEmployeesFromComapnyController = new FindAllUsersEmployeesFrom
 searchUsersEmployeesRouter.use(ensureAuthenticated);
 searchUsersEmployeesRouter.use(accessPermissions);
 
-searchUsersEmployeesRouter.get('/list-all',     
-    celebrate({
-        [Segments.QUERY]: {
-            page: Joi.number().required(),
-        }
-    }),
+searchUsersEmployeesRouter.get('/',
     findAllUsersEmployeesFromComapnyController.index
 );
 

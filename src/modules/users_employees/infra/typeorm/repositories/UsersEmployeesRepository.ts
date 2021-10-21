@@ -24,12 +24,17 @@ class UsersEmployeesRepository implements IUsersEmployeesRepository {
         return user;
     }
 
-    public async findAllUsersEmployeesFromCompany(company_id: string, page: number): Promise<UserEmployee[] | undefined> {
+    public async findByEmployeeId(employee_id: string): Promise<UserEmployee | undefined> {
+        const user = await this.ormRepository.findOne(employee_id, { withDeleted: true });
+
+        return user;
+    }
+
+    public async findAllUsersEmployeesFromCompany(company_id: string): Promise<UserEmployee[] | undefined> {
         const users = await this.ormRepository.find({ 
             where: { company_id }, 
             order: { email:'ASC' },
-            take: 30,
-            skip: (page - 1) * 30
+            relations: ['employee']
         });
 
         return users;
@@ -45,6 +50,10 @@ class UsersEmployeesRepository implements IUsersEmployeesRepository {
 
     public async save(user: UserEmployee): Promise<UserEmployee> {
         return await this.ormRepository.save(user);
+    }
+
+    public async softDelete(id: string): Promise<void> {
+        await this.ormRepository.softDelete(id)
     }
 }
 

@@ -34,11 +34,19 @@ usersEmployeesRouter.post('/',
     celebrate({
         [Segments.BODY]: {
             email: Joi.string().email().required(),
-            password: Joi.string().required(),
             employee_id: Joi.string().uuid().required(),
         }
     }), 
     usersEmployeesController.create
+);
+
+usersEmployeesRouter.delete('/:id', 
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        }
+    }),
+    usersEmployeesController.delete
 );
 
 
