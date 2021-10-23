@@ -18,7 +18,7 @@ class ProductsRepository implements IProductsRepository {
     }
 
     public async findById(id: string, company_id: string): Promise<Product | undefined> {
-        const product = await this.ormRepository.findOne({ where: { id, company_id }, withDeleted: true });
+        const product = await this.ormRepository.findOne({ where: { id, company_id } });
 
         return product;
     }
@@ -33,12 +33,12 @@ class ProductsRepository implements IProductsRepository {
         return existentProducts;
     }
 
-    public async findAllProductsFromCompany(company_id: string, page: number): Promise<Product[] | undefined> {
-        const products = await this.ormRepository.find({ 
+    public async findAllProductsFromCompany(company_id: string, page: number): Promise<[Product[], number] | undefined> {
+        const products = await this.ormRepository.findAndCount({ 
             where: { company_id }, 
             order: { name:'ASC' },
-            take: 30,
-            skip: (page - 1) * 30
+            take: 10,
+            skip: (page - 1) * 10
         });
 
         return products;
@@ -48,19 +48,21 @@ class ProductsRepository implements IProductsRepository {
         const products = await this.ormRepository.find({ 
             where: { company_id }, 
             order: { created_at: 'DESC' },
-            take: 15
+            take: 10
         });
 
         return products;
     }
 
-    public async findProductByName(company_id: string, name: string): Promise<Product[] | undefined> {
-        const products = this.ormRepository.find({
+    public async findProductByName(company_id: string, name: string, page: number): Promise<[Product[], number] | undefined> {
+        const products = this.ormRepository.findAndCount({
             where: {
                 company_id,
                 name: ILike(`%${name}%`)
             },
-            order: { name: 'ASC'}
+            order: { name: 'ASC'},
+            take: 10,
+            skip: (page - 1) * 10
         });
 
         return products;

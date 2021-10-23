@@ -8,6 +8,7 @@ import Product from '../infra/typeorm/entities/Product';
 interface IRequest {
     name: string;
     company_id: string;
+    page: number
 }
 
 @injectable()
@@ -17,8 +18,8 @@ class FindProductByNameService {
         private productsRepository: IProductsRepository,
     ) {}
 
-    public async execute({ company_id, name }: IRequest): Promise<Product[]> {
-        const products = await this.productsRepository.findProductByName(company_id, name);
+    public async execute({ company_id, name, page }: IRequest): Promise<[Product[], number]> {
+        const products = await this.productsRepository.findProductByName(company_id, name, page);
 
         if(!products)
             throw new AppError('Products not found');

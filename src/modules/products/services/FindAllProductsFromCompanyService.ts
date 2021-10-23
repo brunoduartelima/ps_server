@@ -17,7 +17,7 @@ class FindAllProductsFromCompanyService {
         private productsRepository: IProductsRepository,
     ) {}
 
-    public async execute({ company_id, page }: IRequest): Promise<Product[]> {
+    public async execute({ company_id, page }: IRequest): Promise<[Product[], number]> {
         const products = await this.productsRepository.findAllProductsFromCompany(company_id, page);
 
         if(!products)

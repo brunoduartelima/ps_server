@@ -8,6 +8,7 @@ import Job from '../infra/typeorm/entities/Job';
 interface IRequest {
     name: string;
     company_id: string;
+    page: number
 }
 
 @injectable()
@@ -17,8 +18,8 @@ class FindJobByNameService {
         private jobsRepository: IJobsRepository,
     ) {}
 
-    public async execute({ company_id, name }: IRequest): Promise<Job[]> {
-        const jobs = await this.jobsRepository.findJobByName(company_id, name);
+    public async execute({ company_id, name, page }: IRequest): Promise<[Job[], number]> {
+        const jobs = await this.jobsRepository.findJobByName(company_id, name, page);
 
         if(!jobs)
             throw new AppError('Jobs not found');

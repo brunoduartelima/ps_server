@@ -17,7 +17,7 @@ class FindAllJobsFromCompanyService {
         private jobsRepository: IJobsRepository,
     ) {}
 
-    public async execute({ company_id, page }: IRequest): Promise<Job[]> {
+    public async execute({ company_id, page }: IRequest): Promise<[Job[], number]> {
         const jobs = await this.jobsRepository.findAllJobsFromCompany(company_id, page);
 
         if(!jobs)

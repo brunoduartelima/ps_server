@@ -17,7 +17,7 @@ class JobsRepository implements IJobsRepository {
     }
 
     public async findById(id: string, company_id: string): Promise<Job | undefined> {
-        const job = await this.ormRepository.findOne({ where: { id, company_id }, withDeleted: true });
+        const job = await this.ormRepository.findOne({ where: { id, company_id } });
 
         return job;
     }
@@ -32,12 +32,12 @@ class JobsRepository implements IJobsRepository {
         return existentJobs;
     }
 
-    public async findAllJobsFromCompany(company_id: string, page: number): Promise<Job[] | undefined> {
-        const jobs = await this.ormRepository.find({ 
+    public async findAllJobsFromCompany(company_id: string, page: number): Promise<[Job[], number] | undefined> {
+        const jobs = await this.ormRepository.findAndCount({ 
             where: { company_id }, 
             order: { name:'ASC' },
-            take: 30,
-            skip: (page - 1) * 30
+            take: 10,
+            skip: (page - 1) * 10
         });
 
         return jobs;
@@ -47,19 +47,21 @@ class JobsRepository implements IJobsRepository {
         const jobs = await this.ormRepository.find({ 
             where: { company_id }, 
             order: { created_at: 'DESC' },
-            take: 15
+            take: 10
         });
 
         return jobs;
     }
 
-    public async findJobByName(company_id: string, name: string): Promise<Job[] | undefined> {
-        const jobs = this.ormRepository.find({
+    public async findJobByName(company_id: string, name: string, page: number): Promise<[Job[], number] | undefined> {
+        const jobs = this.ormRepository.findAndCount({
             where: {
                 company_id,
                 name: ILike(`%${name}%`)
             },
-            order: { name: 'ASC'}
+            order: { name: 'ASC'},
+            take: 10,
+            skip: (page - 1) * 10
         });
 
         return jobs;

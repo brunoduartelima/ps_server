@@ -9,9 +9,9 @@ interface IFindProducts {
 export default interface IProductsRepository {
     findById(id: string, company_id: string): Promise<Product | undefined>;
     findAllById(products: IFindProducts[], company_id: string): Promise<Product[]>;
-    findAllProductsFromCompany(company_id: string, page: number): Promise<Product[] | undefined>;
+    findAllProductsFromCompany(company_id: string, page: number): Promise<[Product[], number] | undefined>;
     findNewlyAddProducts(company_id: string): Promise<Product[] | undefined>;
-    findProductByName(company_id: string, name: string): Promise<Product[] | undefined>;
+    findProductByName(company_id: string, name: string, page: number): Promise<[Product[], number] | undefined>;
     findNameForControl(company_id: string, name: string): Promise<Product | undefined>;
     updateQuantity(products: IUpdateProductsQuantityDTO[]): Promise<Product[]>;
     create(data: ICreateProductDTO): Promise<Product>;

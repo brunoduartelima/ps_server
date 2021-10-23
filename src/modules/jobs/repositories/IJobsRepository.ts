@@ -8,9 +8,9 @@ interface IFindJobs {
 export default interface IProductsRepository {
     findById(id: string, company_id: string): Promise<Job | undefined>;
     findAllById(jobs: IFindJobs[], company_id: string): Promise<Job[]>;
-    findAllJobsFromCompany(company_id: string, page: number): Promise<Job[] | undefined>;
+    findAllJobsFromCompany(company_id: string, page: number): Promise<[Job[], number] | undefined>;
     findNewlyAddJobs(company_id: string): Promise<Job[] | undefined>;
-    findJobByName(company_id: string, name: string): Promise<Job[] | undefined>;
+    findJobByName(company_id: string, name: string, page: number): Promise<[Job[], number] | undefined>;
     findNameForControl(company_id: string, name: string): Promise<Job | undefined>;
     create(data: ICreateJobDTO): Promise<Job>;
     save(job: Job): Promise<Job>;
