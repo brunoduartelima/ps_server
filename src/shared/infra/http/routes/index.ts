@@ -12,6 +12,7 @@ import customersRouter from '@modules/customers/infra/http/routes/customers.rout
 import detailsCustomersRouter from '@modules/customers/infra/http/routes/details.routes';
 import searchCustomersRouter from '@modules/customers/infra/http/routes/search.routes';
 import productsRouter from '@modules/products/infra/http/routes/products.routes';
+import detailsProductsRouter from '@modules/products/infra/http/routes/details.routes';
 import searchProductsRouter from '@modules/products/infra/http/routes/search.routes';
 import jobsRouter from '@modules/jobs/infra/http/routes/jobs.routes';
 import searchJobsRouter from '@modules/jobs/infra/http/routes/search.routes';
@@ -36,6 +37,7 @@ routes.use('/customers', customersRouter);
 routes.use('/customers/details', detailsCustomersRouter);
 routes.use('/customers/search', searchCustomersRouter);
 routes.use('/products', productsRouter);
+routes.use('/products/details', detailsProductsRouter);
 routes.use('/products/search', searchProductsRouter);
 routes.use('/jobs', jobsRouter);
 routes.use('/jobs/search', searchJobsRouter);

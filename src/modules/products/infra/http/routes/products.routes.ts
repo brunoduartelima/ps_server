@@ -15,8 +15,8 @@ productRouter.post('/',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
-            code: Joi.string(), 
-            description: Joi.string(),
+            code: Joi.string().allow(''), 
+            description: Joi.string().allow(''),
             price: Joi.number().required(),
             quantity: Joi.number().integer().required(),
             average_cost: Joi.number().required(),
@@ -29,8 +29,8 @@ productRouter.put('/:id',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
-            code: Joi.string(), 
-            description: Joi.string(),
+            code: Joi.string().empty(), 
+            description: Joi.string().empty(),
             price: Joi.number().required(),
             quantity: Joi.number().integer().required(),
             average_cost: Joi.number().required(),
