@@ -22,6 +22,9 @@ import financialsRouter from '@modules/financials/infra/http/routes/financials.r
 import searchFinancialsRouter from '@modules/financials/infra/http/routes/search.routes';
 import usersEmployeesRouter from '@modules/users_employees/infra/http/routes/usersEmployees.routes';
 import searchUsersEmployeesRouter from '@modules/users_employees/infra/http/routes/search.routes';
+import stocksRouter from '@modules/stocks/infra/http/routes/stocks.routes';
+import detailsStocksRouter from '@modules/stocks/infra/http/routes/details.routes';
+import searchStocksRouter from '@modules/stocks/infra/http/routes/search.routes';
 
 const routes = Router();
 
@@ -47,5 +50,8 @@ routes.use('/financials', financialsRouter);
 routes.use('/financials/search', searchFinancialsRouter);
 routes.use('/users_employees', usersEmployeesRouter);
 routes.use('/users_employees/search', searchUsersEmployeesRouter);
+routes.use('/stocks', stocksRouter);
+routes.use('/stocks/details', detailsStocksRouter);
+routes.use('/stocks/search', searchStocksRouter);
 
 export default routes;

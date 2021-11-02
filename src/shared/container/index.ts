@@ -36,6 +36,9 @@ import FinancialsRepository from '@modules/financials/infra/typeorm/repositories
 import IUsersEmployeesRepository from '@modules/users_employees/repositories/IUsersEmployeesRepository';
 import UsersEmployeesRepository from '@modules/users_employees/infra/typeorm/repositories/UsersEmployeesRepository';
 
+import IStocksRepository from '@modules/stocks/repositories/IStocksRepository';
+import StocksRepository from '@modules/stocks/infra/typeorm/repositories/StocksRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IUserTokensRepository>('UserTokensRepository', UserTokensRepository);
@@ -57,3 +60,5 @@ container.registerSingleton<ISalesRelationshipsRepository>('SalesRelationshipsRe
 container.registerSingleton<IFinancialsRepository>('FinancialsRepository', FinancialsRepository);
 
 container.registerSingleton<IUsersEmployeesRepository>('UsersEmployeesRepository', UsersEmployeesRepository);
+
+container.registerSingleton<IStocksRepository>('StocksRepository', StocksRepository);
