@@ -15,7 +15,7 @@ saleRouter.post('/',
     celebrate({
         [Segments.BODY]: {
             type: Joi.string().required(),
-            description: Joi.string(),
+            description: Joi.string().allow(''),
             date: Joi.date().required(),
             employees: Joi.array().items(
                 Joi.object({

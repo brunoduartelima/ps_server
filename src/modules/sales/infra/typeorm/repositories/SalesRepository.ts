@@ -15,8 +15,16 @@ class SalesRepository implements ISalesRepository {
     public async findById(id: string, company_id: string): Promise<Sale | undefined> {
         const sale = await this.ormRepository.findOne({ 
             where: { id, company_id }, 
-            relations: ['sale_products', 'sale_jobs', 'sale_employees', 'customer'],
-            withDeleted: true });
+            relations: [
+                'sale_products', 
+                'sale_products.product', 
+                'sale_jobs', 
+                'sale_jobs.job', 
+                'sale_employees', 
+                'sale_employees.employee',
+                'customer'
+            ]
+        });
 
         return sale;
     }
