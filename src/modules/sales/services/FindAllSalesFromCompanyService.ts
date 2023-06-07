@@ -17,7 +17,7 @@ class FindAllSalesFromCompanyService {
         private salesRepository: ISalesRepository,
     ) {}
 
-    public async execute({ company_id, page }: IRequest): Promise<Sale[]> {
+    public async execute({ company_id, page }: IRequest): Promise<[Sale[], number]> {
         const sales = await this.salesRepository.findAllSalesFromCompany(company_id, page);
 
         if(!sales)

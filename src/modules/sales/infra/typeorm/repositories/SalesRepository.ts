@@ -29,8 +29,8 @@ class SalesRepository implements ISalesRepository {
         return sale;
     }
 
-    public async findAllSalesFromCompany(company_id: string, page: number): Promise<Sale[] | undefined> {
-        const sales = await this.ormRepository.find({ 
+    public async findAllSalesFromCompany(company_id: string, page: number): Promise<[Sale[], number] | undefined> {
+        const sales = await this.ormRepository.findAndCount({ 
             where: { company_id },
             relations: ['sale_products', 'sale_jobs', 'sale_employees', 'customer'],
             order: { created_at:'ASC' },
