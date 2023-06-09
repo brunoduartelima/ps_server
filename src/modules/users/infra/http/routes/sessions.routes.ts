@@ -11,7 +11,7 @@ sessionsRouter.post('/',
         [Segments.BODY]: {
             email: Joi.string().email().required(),
             password: Joi.string().required(),
-            type_user: Joi.string().required()
+            typeUser: Joi.string().required()
         }
     }),    
     sessionsController.create

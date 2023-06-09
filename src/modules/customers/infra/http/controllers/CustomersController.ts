@@ -9,28 +9,27 @@ import FindNewlyAddCustomersService from '@modules/customers/services/FindNewlyA
 
 export default class CustomersController {
     public async index(request: Request, response: Response): Promise<Response> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
 
         const findCustomers = container.resolve(FindNewlyAddCustomersService);
 
-        const customers = await findCustomers.execute({ company_id });
+        const customers = await findCustomers.execute({ idCompany });
 
         return response.json(customers);
-
     }
 
     public async create(request: Request, response: Response): Promise<Response> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
         const { 
             name, 
             cpf, 
             address, 
-            address_number, 
+            addressNumber, 
             neighborhood, 
             cep, 
             sex, 
             phone,
-            date_birth,
+            dateBirth,
             email 
         } = request.body;
 
@@ -40,32 +39,32 @@ export default class CustomersController {
             name, 
             cpf, 
             address, 
-            address_number, 
+            addressNumber, 
             neighborhood, 
             cep, 
             sex, 
             phone,
-            date_birth,
+            dateBirth,
             email,
-            company_id
+            idCompany
         });
 
         return response.json(customer);
     }
 
     public async update(request: Request, response: Response): Promise<Response> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
         const { id } = request.params;
         const {         
             name, 
             cpf, 
             address, 
-            address_number, 
+            addressNumber, 
             neighborhood, 
             cep, 
             sex, 
             phone, 
-            date_birth, 
+            dateBirth, 
             email,
         } = request.body;
 
@@ -76,37 +75,37 @@ export default class CustomersController {
             name, 
             cpf, 
             address, 
-            address_number, 
+            addressNumber, 
             neighborhood, 
             cep, 
             sex, 
             phone, 
-            date_birth, 
+            dateBirth, 
             email, 
-            company_id
+            idCompany
         });
 
         return response.json(customer);
     }
 
     public async delete(request: Request, response: Response): Promise<void> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
         const { id } = request.params;
 
         const deleteCustomer = container.resolve(DeleteCustomerService);
 
-        await deleteCustomer.execute({ id, company_id });
+        await deleteCustomer.execute({ id, idCompany });
 
         response.status(200).send();
     }
 
     public async restore(request: Request, response: Response): Promise<void> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
         const { id } = request.params;
 
         const restoreCustomer = container.resolve(RestoreCustomerService);
 
-        await restoreCustomer.execute({ id, company_id });
+        await restoreCustomer.execute({ id, idCompany });
 
         response.status(200).send();
     }

@@ -9,14 +9,14 @@ interface IRequest {
     name: string;
     cpf: string;
     address: string;
-    address_number: string;
+    addressNumber: string;
     neighborhood: string;
     cep: string;
     sex: string;
     phone: string;
-    date_birth: Date;
+    dateBirth: Date;
     email?: string;
-    company_id: string;
+    idCompany: string;
 }
 
 @injectable()
@@ -27,7 +27,7 @@ class CreateCustomerService {
     ) {}
 
     public async execute(data: IRequest): Promise<Customer> {
-        const controlCustomerCpf = await this.customersRepository.findCustomerByCPF(data.company_id, data.cpf);
+        const controlCustomerCpf = await this.customersRepository.findCustomerByCPF(data.idCompany, data.cpf);
 
         if(controlCustomerCpf)
             throw new AppError('This CPF is already being used.');

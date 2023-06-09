@@ -16,8 +16,8 @@ class RestoreCustomerService {
         private customersRepository: ICustomersRepository,
     ) {}
 
-    public async execute({ id, company_id }: IRequest): Promise<void> {
-        const customer = await this.customersRepository.findById(id, company_id);
+    public async execute({ id, idCompany }: IRequest): Promise<void> {
+        const customer = await this.customersRepository.findById(id, idCompany);
 
         if(!customer)
             throw new AppError('Customer not found');

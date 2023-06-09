@@ -7,7 +7,7 @@ import AppError from '@shared/errors/AppError';
 
 interface IRequest {
     id: string;
-    company_id: string;
+    idCompany: string;
 }
 
 @injectable()
@@ -17,8 +17,8 @@ class FindCustomerDetailsService {
         private customersRepository: ICustomersRepository,
     ) {}
 
-    public async execute({ id, company_id }: IRequest): Promise<Customer> {
-        const customer = await this.customersRepository.findById(id, company_id);
+    public async execute({ id, idCompany }: IRequest): Promise<Customer> {
+        const customer = await this.customersRepository.findById(id, idCompany);
 
         if(!customer)
             throw new AppError('Customer not found');

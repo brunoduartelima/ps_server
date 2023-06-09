@@ -9,7 +9,7 @@ interface TokenPayload {
     exp: number;
     sub: string;
     user: string;
-    access_level: string;
+    accessLevel: string;
 }
 
 export default function ensureAuthenticated(
@@ -27,12 +27,12 @@ export default function ensureAuthenticated(
     try {
         const decoded = verify(token, authConfig.jwt.secret);
 
-        const { sub, user, access_level } = decoded as TokenPayload;
+        const { sub, user, accessLevel } = decoded as TokenPayload;
 
         request.token = {
-            user_id: user,
-            company_id: sub,
-            access_level: access_level
+            idUser: user,
+            idCompany: sub,
+            accessLevel
         };
 
         return next();

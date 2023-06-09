@@ -15,20 +15,20 @@ class CustomersRepository implements ICustomersRepository {
         this.companyCustomerRepository = getRepository(CompaniesCustomers);
     }
 
-    public async findById(id: string, company_id: string): Promise<Customer | undefined> {
+    public async findById(id: string, idCompany: string): Promise<Customer | undefined> {
         const customer = await this.ormRepository.createQueryBuilder('customer')
-        .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
-        .where('company.company_id = :company_id', { company_id })
+        .leftJoinAndSelect('companies_customers', 'company', 'company.idCustomer = customer.id')
+        .where('company.company_id = :idCompany', { idCompany })
         .andWhere('customer.id = :id', { id })
         .getOne()
 
         return customer;
     }
 
-    public async findAllCustomersFromCompany(company_id: string, page: number): Promise<[Customer[], number] | undefined> {
+    public async findAllCustomersFromCompany(idCompany: string, page: number): Promise<[Customer[], number] | undefined> {
         const customers = await this.ormRepository.createQueryBuilder('customer')
-        .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
-        .where('company.company_id = :company_id', { company_id })
+        .leftJoinAndSelect('companies_customers', 'company', 'company.idCustomer = customer.id')
+        .where('company.company_id = :idCompany', { idCompany })
         .orderBy('customer.name', 'ASC')
         .take(10)
         .skip((page - 1 )* 10)
@@ -37,21 +37,21 @@ class CustomersRepository implements ICustomersRepository {
         return customers;
     }
 
-    public async findNewlyAddCustomers(company_id: string): Promise<Customer[] | undefined> {
+    public async findNewlyAddCustomers(idCompany: string): Promise<Customer[] | undefined> {
         const customers = await this.ormRepository.createQueryBuilder('customer')
-        .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
-        .where('company.company_id = :company_id', { company_id })
-        .orderBy('customer.created_at', 'DESC')
+        .leftJoinAndSelect('companies_customers', 'company', 'company.idCustomer = customer.id')
+        .where('company.idCompany = :idCompany', { idCompany })
+        .orderBy('customer.createdAt', 'DESC')
         .take(10)
         .getMany()
 
         return customers;
     }
 
-    public async findCustomerByName(company_id: string, name: string, page: number): Promise<[Customer[], number] | undefined> {
+    public async findCustomerByName(idCompany: string, name: string, page: number): Promise<[Customer[], number] | undefined> {
         const customers = await this.ormRepository.createQueryBuilder('customer')
-        .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
-        .where('company.company_id = :company_id', { company_id })
+        .leftJoinAndSelect('companies_customers', 'company', 'company.idCustomer = customer.id')
+        .where('company.company_id = :idCompany', { idCompany })
         .andWhere('customer.name ilike :name', { name: `%${name}%` })
         .orderBy('customer.name', 'ASC')
         .take(10)
@@ -61,11 +61,11 @@ class CustomersRepository implements ICustomersRepository {
         return customers;
     }
 
-    public async findCustomerByCPF(company_id: string, cpf: string): Promise<Customer | undefined> {
+    public async findCustomerByCPF(idCompany: string, cpf: string): Promise<Customer | undefined> {
         const customer = await this.ormRepository.createQueryBuilder('customer')
-        .leftJoinAndSelect('companies_customers', 'company', 'company.customer_id = customer.id')
+        .leftJoinAndSelect('companies_customers', 'company', 'company.idCustomer = customer.id')
         .where('customer.cpf = :cpf', { cpf })
-        .andWhere('company.company_id = :company_id', { company_id })
+        .andWhere('company.company_id = :idCompany', { idCompany })
         .getOne()
 
         return customer;
@@ -75,32 +75,32 @@ class CustomersRepository implements ICustomersRepository {
         name, 
         cpf, 
         address, 
-        address_number, 
+        addressNumber, 
         neighborhood, 
         cep, 
         sex, 
         phone, 
-        date_birth, 
+        dateBirth, 
         email, 
-        company_id }: ICreateCustomerDTO): Promise<Customer> {
+        idCompany }: ICreateCustomerDTO): Promise<Customer> {
             const customer = this.ormRepository.create({
                 name, 
                 cpf,
                 address, 
-                address_number, 
+                addressNumber, 
                 neighborhood, 
                 cep, 
                 sex, 
                 phone, 
-                date_birth, 
+                dateBirth, 
                 email
             });
 
             const insertedId = await this.ormRepository.save(customer);
 
             const companies_customers = this.companyCustomerRepository.create({
-                customer_id: insertedId.id,
-                company_id
+                idCustomer: insertedId.id,
+                idCompany
             });
 
             await this.companyCustomerRepository.save(companies_customers);

@@ -25,17 +25,17 @@ class CompaniesCustomer {
     @JoinColumn({ name: 'customer_id' })
     customer: Customer;
   
-    @Column()
-    company_id: string;
+    @Column({ name: 'company_id' })
+    idCompany: string;
   
-    @Column()
-    customer_id: string;
+    @Column({ name: 'customer_id' })
+    idCustomer: string;
   
-    @CreateDateColumn()
-    created_at: Date;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
   
-    @UpdateDateColumn()
-    updated_at: Date;
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 }
   
 export default CompaniesCustomer;

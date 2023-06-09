@@ -18,14 +18,14 @@ class CompaniesRepository implements ICompaniesRepository {
         return company;
     }
 
-    public async findCompany(user_id: string): Promise<Company | undefined> {
-        const company = await this.ormRepository.findOne({ where: { user_id } });
+    public async findCompany(idUser: string): Promise<Company | undefined> {
+        const company = await this.ormRepository.findOne({ where: { idUser } });
 
         return company;
     }
 
-    public async create({ name, company_type, uf, city, user_id  }: ICreateCompanyDTO): Promise<Company> {
-        const company = this.ormRepository.create({ name, company_type, uf, city, user_id });
+    public async create({ name, companyType, uf, city, idUser  }: ICreateCompanyDTO): Promise<Company> {
+        const company = this.ormRepository.create({ name, companyType, uf, city, idUser });
 
         await this.ormRepository.save(company);
 

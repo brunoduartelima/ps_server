@@ -6,7 +6,7 @@ import ICustomersRepository from '../repositories/ICustomersRepository';
 import Customer from '../infra/typeorm/entities/Customer';
 
 interface IRequest {
-    company_id: string;
+    idCompany: string;
     page: number;
 }
 
@@ -17,8 +17,8 @@ class FindAllCustomersFromCompanyService {
         private customersRepository: ICustomersRepository,
     ) {}
 
-    public async execute({ company_id, page }: IRequest): Promise<[Customer[], number]> {
-        const customers = await this.customersRepository.findAllCustomersFromCompany(company_id, page);
+    public async execute({ idCompany, page }: IRequest): Promise<[Customer[], number]> {
+        const customers = await this.customersRepository.findAllCustomersFromCompany(idCompany, page);
 
         if(!customers)
             throw new AppError('Customers not found');

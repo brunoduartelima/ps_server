@@ -5,7 +5,7 @@ import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
 interface TokenPayload {
-    access_level: string;
+    accessLevel: string;
 }
 
 export default function accessPermissions(
@@ -23,9 +23,9 @@ export default function accessPermissions(
     try {
         const decoded = verify(token, authConfig.jwt.secret);
 
-        const { access_level } = decoded as TokenPayload;
+        const { accessLevel } = decoded as TokenPayload;
 
-        if(access_level !== 'master')
+        if(accessLevel !== 'master')
             throw new AppError('Access denied');
 
         return next();

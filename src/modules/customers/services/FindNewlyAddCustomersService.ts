@@ -6,7 +6,7 @@ import ICustomersRepository from '../repositories/ICustomersRepository';
 import Customer from '../infra/typeorm/entities/Customer';
 
 interface IRequest {
-    company_id: string;
+    idCompany: string;
 }
 
 @injectable()
@@ -16,8 +16,8 @@ class FindNewlyAddCustomersService {
         private customersRepository: ICustomersRepository,
     ) {}
 
-    public async execute({ company_id }: IRequest): Promise<Customer[]> {
-        const customers = await this.customersRepository.findNewlyAddCustomers(company_id);
+    public async execute({ idCompany }: IRequest): Promise<Customer[]> {
+        const customers = await this.customersRepository.findNewlyAddCustomers(idCompany);
 
         if(!customers)
             throw new AppError('Customers not found');

@@ -7,9 +7,9 @@ import AuthenticateUserEmployeeService from '@modules/users_employees/services/A
 
 export default class SessionsController {
     public async create(request: Request, response: Response): Promise<Response> {
-        const { email, password, type_user } = request.body;
+        const { email, password, typeUser } = request.body;
 
-        if(type_user === 'master') {
+        if(typeUser === 'master') {
             const authenticateUser = container.resolve(AuthenticateUserService);
 
             const { company, user, token } = await authenticateUser.execute({

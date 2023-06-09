@@ -8,10 +8,10 @@ import Company from '@modules/companies/infra/typeorm/entities/Company';
 
 interface IRequest {
     name: string;
-    company_type: string;
+    companyType: string;
     uf: string;
     city: string;
-    user_id: string;
+    idUser: string;
 }
 
 @injectable()
@@ -24,23 +24,23 @@ class CreateCompanyService {
         private usersRepository: IUsersRepository,
     ) {}
 
-    public async execute({ name, company_type, uf, city, user_id }: IRequest): Promise<Company> {
-        const user = await this.usersRepository.findById(user_id);
+    public async execute({ name, companyType, uf, city, idUser }: IRequest): Promise<Company> {
+        const user = await this.usersRepository.findById(idUser);
 
         if(!user)
             throw new AppError('User not found');
 
-        const userOwnsCompany = await this.companiesRepository.findCompany(user_id);
+        const userOwnsCompany = await this.companiesRepository.findCompany(idUser);
 
         if (userOwnsCompany)
             throw new AppError('User has a registered company.');
 
         const company = await this.companiesRepository.create({
             name,
-            company_type,
+            companyType,
             uf,
             city,
-            user_id
+            idUser
         });
 
         return company;

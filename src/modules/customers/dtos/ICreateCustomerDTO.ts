@@ -2,12 +2,12 @@ export default interface ICreateCustomerDTO {
     name: string;
     cpf: string;
     address: string;
-    address_number: string;
+    addressNumber: string;
     neighborhood: string;
     cep: string;
     sex: string;
     phone: string;
-    date_birth: Date;
+    dateBirth: Date;
     email?: string;
-    company_id: string;
+    idCompany: string;
 }

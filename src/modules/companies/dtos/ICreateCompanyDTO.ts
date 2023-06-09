@@ -1,7 +1,7 @@
 export default interface ICreateCompanyDTO {
     name: string;
-    company_type: string;
+    companyType: string;
     uf: string;
     city: string;
-    user_id: string;
+    idUser: string;
 }

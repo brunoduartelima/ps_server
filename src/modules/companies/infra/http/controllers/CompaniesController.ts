@@ -7,11 +7,11 @@ import ShowCompanyService from '@modules/companies/services/ShowCompanyService';
 
 export default class CompaniesController {
     public async index(request: Request, response: Response): Promise<Response> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
 
         const showCompany = container.resolve(ShowCompanyService);
 
-        const company = await showCompany.execute({ company_id });
+        const company = await showCompany.execute({ idCompany });
 
         return response.json(company);
     }
@@ -34,7 +34,7 @@ export default class CompaniesController {
     }
 
     public async update(request: Request, response: Response): Promise<Response> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
         const { name, company_type, uf, city } = request.body;
 
         const updateCompany = container.resolve(UpdateCompanyService);
@@ -44,7 +44,7 @@ export default class CompaniesController {
             company_type,
             uf, 
             city, 
-            company_id
+            idCompany
         });
     
         return response.json(company);

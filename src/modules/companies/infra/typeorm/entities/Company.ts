@@ -21,8 +21,8 @@ class Company {
     @Column()
     name: string;
 
-    @Column()
-    company_type: string;
+    @Column({ name: 'company_type' })
+    companyType: string;
 
     @Column()
     uf: string;
@@ -30,26 +30,26 @@ class Company {
     @Column()
     city: string;
 
+    @Column({ name: 'user_id' })
+    idUser: string;
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
+
+    @DeleteDateColumn({ name: 'deleted_at' })
+    deletedAt: Date;
+
     @OneToOne(() => User)
     @JoinColumn({ name: 'user_id' })
     user: User;
-
-    @Column()
-    user_id: string;
 
     @OneToMany(() => CompaniesCustomers, company_customers => company_customers.company, {
         cascade: true,
     })
     company_customers: CompaniesCustomers[];
-
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
-
-    @DeleteDateColumn()
-    deleted_at: Date;
 }
 
 export default Company;

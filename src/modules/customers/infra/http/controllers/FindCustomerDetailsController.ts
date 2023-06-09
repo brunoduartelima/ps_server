@@ -5,12 +5,12 @@ import FindCustomerDetailsService from '@modules/customers/services/FindCustomer
 
 export default class FindCustomerDetailsController {
     public async index(request: Request, response: Response): Promise<Response> {
-        const { company_id } = request.token;
+        const { idCompany } = request.token;
         const { id } = request.params;
 
         const findCustomer = container.resolve(FindCustomerDetailsService);
 
-        const customer = await findCustomer.execute({ company_id, id });
+        const customer = await findCustomer.execute({ idCompany, id });
 
         return response.json(customer);
 

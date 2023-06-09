@@ -10,14 +10,14 @@ interface IRequest {
     name: string;
     cpf: string;
     address: string;
-    address_number: string;
+    addressNumber: string;
     neighborhood: string;
     cep: string;
     sex: string;
     phone: string;
-    date_birth: Date;
+    dateBirth: Date;
     email?: string;
-    company_id: string;
+    idCompany: string;
 }
 
 @injectable()
@@ -28,14 +28,14 @@ class UpdateCustomerService {
     ) {}
 
     public async execute(data: IRequest): Promise<Customer> {
-        const customer = await this.customersRepository.findById(data.id, data.company_id);
+        const customer = await this.customersRepository.findById(data.id, data.idCompany);
 
         if(!customer)
             throw new AppError('Customer not found');
 
         if(customer.cpf !== data.cpf) {
             const controlCustomerCpf = await this.customersRepository.findCustomerByCPF(
-                data.company_id, 
+                data.idCompany, 
                 data.cpf
             );
 
@@ -43,18 +43,18 @@ class UpdateCustomerService {
                 throw new AppError('This CPF is already being used.');
         }
     
-        if(customer.deleted_at !== null)
+        if(customer.deletedAt !== null)
             throw new AppError('Customer deleted, operation not permitted');
 
         customer.name = data.name;
         customer.cpf = data.cpf;
         customer.address = data.address;
-        customer.address_number = data.address_number;
+        customer.addressNumber = data.addressNumber;
         customer.neighborhood = data.neighborhood;
         customer.cep = data.cep;
         customer.sex = data.sex;
         customer.phone = data.phone;
-        customer.date_birth = data.date_birth;
+        customer.dateBirth = data.dateBirth;
         customer.email = data.email;
 
         return this.customersRepository.save(customer);

@@ -24,8 +24,10 @@ class Customer {
     @Column()
     address: string;
 
-    @Column()
-    address_number: string;
+    @Column({
+        name: 'address_number'
+    })
+    addressNumber: string;
 
     @Column()
     neighborhood: string;
@@ -39,26 +41,33 @@ class Customer {
     @Column()
     phone: string;
 
-    @Column()
-    date_birth: Date;
+    @Column({
+        name: 'date_birth'
+    })
+    dateBirth: Date;
 
     @Column()
     email?: string;
+
+    @CreateDateColumn({
+        name: 'created_at'
+    })
+    createdAt: Date;
+
+    @UpdateDateColumn({
+        name: 'updated_at'
+    })
+    updatedAt: Date;
+
+    @DeleteDateColumn({
+        name: 'deleted_at'
+    })
+    deletedAt: Date;
 
     @OneToMany(() => CompaniesCustomers, company_customers => company_customers.customer, {
         cascade: true,
     })
     company_customers: CompaniesCustomers[];
-
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
-
-    @DeleteDateColumn()
-    deleted_at: Date;
-
 }
 
 export default Customer;

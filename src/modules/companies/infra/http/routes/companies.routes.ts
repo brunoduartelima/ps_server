@@ -8,16 +8,16 @@ import accessPermissions from '@modules/users/infra/http/middlewares/accessPermi
 const companiesRouter = Router();
 const companiesController = new CompaniesController();
 
-companiesRouter.post('/:user_id',
+companiesRouter.post('/:idUser',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
-            company_type: Joi.string().required(),
+            companyType: Joi.string().required(),
             uf: Joi.string().required().max(2),
             city: Joi.string().required(),
         },
         [Segments.PARAMS]: {
-            user_id: Joi.string().uuid().required(),
+            idUser: Joi.string().uuid().required(),
         }
     }), 
     companiesController.create
@@ -31,7 +31,7 @@ companiesRouter.put('/',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
-            company_type: Joi.string().required(),
+            companyType: Joi.string().required(),
             uf: Joi.string().required().max(2),
             city: Joi.string().required(),
         }

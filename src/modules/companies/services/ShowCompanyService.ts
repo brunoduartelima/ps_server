@@ -6,7 +6,7 @@ import ICompaniesRepository from '../repositories/ICompaniesRepository';
 import Company from '@modules/companies/infra/typeorm/entities/Company';
 
 interface IRequest {
-    company_id: string;
+    idCompany: string;
 }
 
 @injectable()
@@ -16,8 +16,8 @@ class ShowCompanyService {
         private companiesRepository: ICompaniesRepository,
     ) {}
 
-    public async execute({ company_id }: IRequest): Promise<Company> {
-        const company = await this.companiesRepository.findById(company_id);
+    public async execute({ idCompany }: IRequest): Promise<Company> {
+        const company = await this.companiesRepository.findById(idCompany);
 
         if (!company)
             throw new AppError('Company not found');
